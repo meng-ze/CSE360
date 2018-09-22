@@ -22,25 +22,7 @@ public class ANETA extends GUI {
 		});
 	}
 
-	private void addSideBarInputField(JPanel parentPanel, JTextField targetField, String name, String iconPath, int x, int y, int width, int height) {
-		JLabel targetLabel = new JLabel(name);
-		targetLabel.setIcon(new ImageIcon(ANETA.class.getResource(iconPath)));
-		targetLabel.setBounds(x, y, width, height);
-		parentPanel.add(targetLabel);
-		
-		targetField.setBounds(28, y+18, 152, height+10);
-		parentPanel.add(targetField);
-		//targetField.setColumns(10);
-	}
-
-	private void addLabel(String labelText, String imagePath, JPanel parentPanel, int x, int y, int width, int height) {
-		JLabel tempLabel = new JLabel(labelText);
-		tempLabel.setIcon(new ImageIcon(ANETA.class.getResource(imagePath)));
-		tempLabel.setBounds(x, y, width, height);
-		parentPanel.add(tempLabel);
-	}
-
-	/**
+	/*
 	 * Create the frame.
 	 */
 	public ANETA() {
@@ -62,8 +44,6 @@ public class ANETA extends GUI {
 		layeredPane.setBounds(190, 78, 638, 405);
 		mainContentPanel.add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
-		
-		
 		
 		/* CreatePanel: contains input Panel and inputRecord Panel
 		 * 	- input Panel: allow user to enter networkName, activityName, duration, dependency
@@ -233,27 +213,9 @@ public class ANETA extends GUI {
 		this.helpPanel.add(tipsPanel);
 		tipsPanel.setLayout(null);
 		
-		txt_ToCreateNetwork = new JTextField();
-		txt_ToCreateNetwork.setText("How to Create a new Network?");
-		txt_ToCreateNetwork.setBounds(45, 20, 369, 26);
-		txt_ToCreateNetwork.setBorder(new EmptyBorder(0, 0, 0, 0));
-		tipsPanel.add(txt_ToCreateNetwork);
-		txt_ToCreateNetwork.setColumns(10);
-		
-		txt_ToFindPathsList = new JTextField();
-		txt_ToFindPathsList.setText("Where Can I Find the Paths in Created Network?");
-		txt_ToFindPathsList.setBounds(45, 58, 323, 26);
-		txt_ToFindPathsList.setBorder(new EmptyBorder(0, 0, 0, 0));
-		tipsPanel.add(txt_ToFindPathsList);
-		txt_ToFindPathsList.setColumns(10);
-		
-		txt_ClickRestartButton = new JTextField();
-		txt_ClickRestartButton.setText("What will happen if I click \"Restart\"?");
-		txt_ClickRestartButton.setBounds(45, 96, 283, 26);
-		txt_ClickRestartButton.setBorder(new EmptyBorder(0, 0, 0, 0));
-		tipsPanel.add(txt_ClickRestartButton);
-		txt_ClickRestartButton.setColumns(10);
-		
+		addTextField("How to Create a new Network?", new EmptyBorder(0, 0, 0, 0), tipsPanel, 45, 20, 369, 26);
+		addTextField("Where Can I Find the Paths in Created Network?", new EmptyBorder(0, 0, 0, 0), tipsPanel, 45, 58, 323, 26);
+		addTextField("What will happen if I click \"Restart\"?", new EmptyBorder(0, 0, 0, 0), tipsPanel, 45, 96, 283, 26);
 		
 		this.addLabel("", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", tipsPanel, 6, 20, 61, 26);
 		this.addLabel("", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", tipsPanel, 6, 63, 61, 21);
@@ -309,8 +271,7 @@ public class ANETA extends GUI {
 		txtOurApplication.addMouseListener(new MouseAdapter() 
 		{
 			@Override
-			public void mouseClicked(MouseEvent e) 
-			{
+			public void mouseClicked(MouseEvent e) {
 				ourApplication.setVisible(true);
 				ourMembers.setVisible(false);
 				txtOurApplication.setForeground(new Color(0, 102, 102));
@@ -353,8 +314,8 @@ public class ANETA extends GUI {
 		HeaderPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
 		HeaderPanel.setBackground(new Color(255, 255, 255));
 		HeaderPanel.setBounds(0, 0, 834, 79);
-		mainContentPanel.add(HeaderPanel);
 		HeaderPanel.setLayout(null);
+		mainContentPanel.add(HeaderPanel);
 		
 		JLabel ProjectName = new JLabel(" ANETA");
 		ProjectName.setForeground(new Color(0, 102, 102));
@@ -375,20 +336,11 @@ public class ANETA extends GUI {
 		mainContentPanel.add(MenuPanel);
 		MenuPanel.setLayout(null);
 		
-		
+		txtCreateNetwork = this.addTextField("Create Network", new EmptyBorder(0, 0, 0, 0), MenuPanel, 66, 76, 120, 37, 
+		this, this.createPanel, new Font("Lucida Grande", Font.PLAIN, 13), false, 
+		new Color(0, 102, 102), new Color(255, 255, 255));
+
 		// when user clicks "CreateNetwork", jump to this.createPanel
-		txtCreateNetwork = new JTextField();
-		txtCreateNetwork.addMouseListener(new kMouseAdapter(this, this.createPanel));
-		txtCreateNetwork.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
-		txtCreateNetwork.setEditable(false);
-		txtCreateNetwork.setForeground(new Color(0, 102, 102));
-		txtCreateNetwork.setText("Create Network");
-		txtCreateNetwork.setBackground(new Color(255, 255, 255));
-		txtCreateNetwork.setBorder(new EmptyBorder(0, 0, 0, 0));
-		txtCreateNetwork.setBounds(66, 76, 120, 37);
-		MenuPanel.add(txtCreateNetwork);
-		txtCreateNetwork.setColumns(10);
-		
 		this.addLabel("", "/CSE360TeamProject/Icons/icons8-create-36.png", MenuPanel, 24, 71, 90, 37);
 		this.addLabel("", "/CSE360TeamProject/Icons/icons8-save-close-35.png", MenuPanel, 22, 164, 61, 40);
 		
@@ -400,80 +352,29 @@ public class ANETA extends GUI {
 		
 		this.addLabel("", "/CSE360TeamProject/Icons/icons8-filled-circle-27.png", MenuPanel, 107, 153, 66, 37);
 		
-		// when user clicks "Record", jump to RecordPanel
-		txtRecord = new JTextField();
-		txtRecord.addMouseListener(new kMouseAdapter(this, this.recordPanel));
-		txtRecord.setBackground(new Color(255, 255, 255));
-		txtRecord.setEditable(false);
-		txtRecord.setText("Record");
-		txtRecord.setBounds(67, 167, 48, 37);
-		txtRecord.setBorder(new EmptyBorder(0, 0, 0, 0));
-		MenuPanel.add(txtRecord);
-		txtRecord.setColumns(10);
-		
+		txtRecord = this.addTextField("Record", new EmptyBorder(0, 0, 0, 0), MenuPanel, 67, 167, 48, 37,
+		this, this.recordPanel, null, false, null, new Color(255, 255, 255));
+	
 		this.addLabel("", "/CSE360TeamProject/Icons/icons8-idea-40-2.png", MenuPanel, 19, 264, 90, 40);
 		
-		txtHelp = new JTextField();
-		// when user clicks "Help", jump to HelpPanel
-		txtHelp.addMouseListener(new kMouseAdapter(this, this.helpPanel));
-		txtHelp.setBackground(new Color(255, 255, 255));
-		txtHelp.setText("Help");
-		txtHelp.setEditable(false);
-		txtHelp.setBounds(67, 267, 82, 37);
-		txtHelp.setBorder(new EmptyBorder(0, 0, 0, 0));
-		MenuPanel.add(txtHelp);
-		txtHelp.setColumns(10);
-		
+		txtHelp = this.addTextField("Help", new EmptyBorder(0, 0, 0, 0), MenuPanel, 67, 267, 82, 37,
+		this, this.helpPanel, null, false, null, new Color(255, 255, 255));
+	
 		this.addLabel("", "/CSE360TeamProject/Icons/icons8-question-mark-35-2.png", MenuPanel, 19, 319, 61, 40);
 		
-		// when user clicks "About", jump to this.aboutPanel
-		txtAbout = new JTextField();
-		txtAbout.addMouseListener(new kMouseAdapter(this, this.aboutPanel));
-		txtAbout.setEditable(false);
-		txtAbout.setBackground(new Color(255, 255, 255));
-		txtAbout.setText("About");
-		txtAbout.setBounds(67, 328, 130, 26);
-		txtAbout.setBorder(new EmptyBorder(0, 0, 0, 0));
-		MenuPanel.add(txtAbout);
-		txtAbout.setColumns(10);
-		
+		txtAbout = this.addTextField("About", new EmptyBorder(0, 0, 0, 0), MenuPanel, 67, 328, 130, 26,
+		this, this.aboutPanel, null, false, null, new Color(255, 255, 255));
+	
 		this.addLabel("", "/CSE360TeamProject/Icons/icons8-synchronize-40-2.png", MenuPanel, 19, 216, 61, 37);
 		
 		// when user clicks "Restart", show a pop-up window
-		txtRestart = new JTextField();
-		txtRestart.addMouseListener(new MouseAdapter() 
-		{
-			@Override
-			public void mouseClicked(MouseEvent e) 
-			{
-				txtRestart.setForeground(new Color(0, 102, 102));
-				txtCreateNetwork.setForeground(new Color(0, 0, 0));
-				txtRecord.setForeground(new Color(0, 0, 0));
-				txtHelp.setForeground(new Color(0, 0, 0));
-				txtAbout.setForeground(new Color(0, 0, 0));
-				txtPathsFound.setForeground(new Color(0, 0, 0));
-	
-				JOptionPane.showConfirmDialog(null, "Do you want to reset this application?", "WARNING", JOptionPane.YES_NO_CANCEL_OPTION);
-			}
-		});
-		txtRestart.setEditable(false);
-		txtRestart.setBackground(new Color(255, 255, 255));
-		txtRestart.setText("Restart");
-		txtRestart.setBounds(66, 223, 130, 26);
-		txtRestart.setBorder(new EmptyBorder(0, 0, 0, 0));
-		MenuPanel.add(txtRestart);
-		txtRestart.setColumns(10);
-		
+
+		txtRestart = this.addTextField("Restart", new EmptyBorder(0, 0, 0, 0), MenuPanel, 66, 223, 130, 26,
+		this, this.aboutPanel, null, false, true, null, new Color(255, 255, 255));
+
 		this.addLabel("", "/CSE360TeamProject/Icons/icons8-hard-to-find-40.png", MenuPanel, 19, 118, 61, 37);
 		
-		// when user clicks "PathsFound", jump to this.pathsFoundPanel
-		txtPathsFound = new JTextField();
-		txtPathsFound.addMouseListener(new kMouseAdapter(this, this.pathsFoundPanel));
-		txtPathsFound.setEditable(false);
-		txtPathsFound.setText("Paths Found");
-		txtPathsFound.setBounds(67, 125, 130, 26);
-		txtPathsFound.setBorder(new EmptyBorder(0, 0, 0, 0));
-		MenuPanel.add(txtPathsFound);
-		txtPathsFound.setColumns(10);
+		txtPathsFound = this.addTextField("Paths Found", new EmptyBorder(0, 0, 0, 0), MenuPanel, 67, 125, 130, 26,
+		this, this.aboutPanel, null, false, null, new Color(255, 255, 255));
 	}
 }

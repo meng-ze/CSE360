@@ -4,18 +4,18 @@ import javax.swing.border.*;
 import java.awt.event.*;
 
 public class kMouseAdapter extends MouseAdapter {
-    private ANETA targetApp;
+    private GUI targetApp;
     private JPanel targetPanel;
     private JTextField targetTextfield;
     private Boolean extraConfirmation = false;
 
-    public kMouseAdapter(ANETA targetApp, JPanel target, JTextField targetTextfield) {
+    public kMouseAdapter(GUI targetApp, JPanel target, JTextField targetTextfield) {
         this.targetApp = targetApp;
         this.targetPanel = target;
         this.targetTextfield = targetTextfield;
     }
 
-    public kMouseAdapter(ANETA targetApp, JPanel target, JTextField targetTextfield, Boolean confirmation) {
+    public kMouseAdapter(GUI targetApp, JPanel target, JTextField targetTextfield, Boolean confirmation) {
         this.targetApp = targetApp;
         this.targetPanel = target;
         this.targetTextfield = targetTextfield;

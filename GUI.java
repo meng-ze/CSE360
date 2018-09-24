@@ -24,9 +24,6 @@ public class GUI extends JFrame {
 	protected JTextField SearchBar;
 	protected JTextField txtOurApplication;
 	protected JTextField txtOurMembers;
-	protected JTextField txt_ToCreateNetwork;
-	protected JTextField txt_ToFindPathsList;
-	protected JTextField txt_ClickRestartButton;
 
 	protected void addSideBarInputField(JPanel parentPanel, JTextField targetField, String name, String iconPath, int x, int y, int width, int height) {
 		JLabel targetLabel = new JLabel(name);
@@ -36,19 +33,33 @@ public class GUI extends JFrame {
 		
 		targetField.setBounds(28, y+18, 152, height+10);
 		parentPanel.add(targetField);
-		//targetField.setColumns(10);
 	}
 
-	protected void addLabel(String labelText, String imagePath, JPanel parentPanel, int x, int y, int width, int height) {
-		JLabel tempLabel = new JLabel(labelText);
-		tempLabel.setIcon(new ImageIcon(ANETA.class.getResource(imagePath)));
-		tempLabel.setBounds(x, y, width, height);
-		parentPanel.add(tempLabel);
+	protected void addLabel(String labelText, String imagePath, Font font, JPanel parentPanel, AbstractBorder border,Color foregroundColor, Color backgroundColor, int x, int y, int width, int height) {
+		JLabel tmpLabel = new JLabel(labelText);
+		if (imagePath != "") {
+			tmpLabel.setIcon(new ImageIcon(ANETA.class.getResource(imagePath)));
+		}
+		if (font != null) {
+			tmpLabel.setFont(font);
+		}
+		if (border != null) {
+			tmpLabel.setBorder(border);;
+		}
+		if (foregroundColor != null) {
+			tmpLabel.setForeground(foregroundColor);
+		}
+		if (backgroundColor != null) {
+			tmpLabel.setBackground(backgroundColor);
+		}
+		tmpLabel.setBounds(x, y, width, height);
+		parentPanel.add(tmpLabel);
 	}
+
 
 	protected JTextField addTextField(String title, AbstractBorder border, JPanel parentPanel, int x, int y, int width, int height) {
 		JTextField tmpTextField = new JTextField();
-		tmpTextField.setText("How to Create a new Network?");
+		tmpTextField.setText(title);
 		tmpTextField.setBounds(x, y, width, height);
 		tmpTextField.setBorder(border);
 		tmpTextField.setColumns(10);
@@ -57,14 +68,14 @@ public class GUI extends JFrame {
 	}
 
 	protected JTextField addTextField(String title, AbstractBorder border, JPanel parentPanel, int x, int y, int width, int height,
-	ANETA app, JPanel targetPanel, Font font, Boolean isEditable, Color foregroundColor, Color backgroundColor) {
+	GUI guiApp, JPanel targetPanel, Font font, Boolean isEditable, Color foregroundColor, Color backgroundColor) {
 		JTextField tmpTextField = new JTextField();
 		tmpTextField.setText(title);
 		tmpTextField.setBounds(x, y, width, height);
 		tmpTextField.setBorder(border);
 		tmpTextField.setColumns(10);
 
-		tmpTextField.addMouseListener(new kMouseAdapter(app, targetPanel, tmpTextField));
+		tmpTextField.addMouseListener(new kMouseAdapter(guiApp, targetPanel, tmpTextField));
 		if (font != null) {
 			tmpTextField.setFont(font);
 		}
@@ -79,14 +90,14 @@ public class GUI extends JFrame {
 		return tmpTextField;
 	}
 	protected JTextField addTextField(String title, AbstractBorder border, JPanel parentPanel, int x, int y, int width, int height,
-	ANETA app, JPanel targetPanel, Font font, Boolean isEditable, Boolean extraCommand, Color foregroundColor, Color backgroundColor) {
+	GUI guiApp, JPanel targetPanel, Font font, Boolean isEditable, Boolean extraCommand, Color foregroundColor, Color backgroundColor) {
 		JTextField tmpTextField = new JTextField();
 		tmpTextField.setText(title);
 		tmpTextField.setBounds(x, y, width, height);
 		tmpTextField.setBorder(border);
 		tmpTextField.setColumns(10);
 
-		tmpTextField.addMouseListener(new kMouseAdapter(app, targetPanel, tmpTextField, true));
+		tmpTextField.addMouseListener(new kMouseAdapter(guiApp, targetPanel, tmpTextField, true));
 		if (font != null) {
 			tmpTextField.setFont(font);
 		}
@@ -99,5 +110,23 @@ public class GUI extends JFrame {
 		}
 		parentPanel.add(tmpTextField);
 		return tmpTextField;
+	}
+
+	protected JPanel addPanel(JComponent parentComponent, AbstractBorder borderType, Color backgroundColor, Boolean resetLayout,
+	int x, int y, int width, int height) {
+
+		JPanel tmpPanel = new JPanel();
+		if (borderType != null) {
+			tmpPanel.setBorder(borderType);
+		}
+		if (resetLayout) {
+			tmpPanel.setLayout(null);
+		}
+		if (x != 0 || y != 0 || width != 0 || height != 0) {
+			tmpPanel.setBounds(x, y, width, height);
+		}
+		tmpPanel.setBackground(backgroundColor);
+		parentComponent.add(tmpPanel);
+		return tmpPanel;
 	}
 }

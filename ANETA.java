@@ -3,9 +3,12 @@
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
+
+import javafx.scene.layout.Border;
+
 import java.awt.event.*;
 
-public class ANETA extends GUI {
+public class ANETA extends GUIApp {
 	/**
 	 * Launch the application.
 	 */
@@ -54,12 +57,9 @@ public class ANETA extends GUI {
 		 *  To do: add listener to inputRecord textArea to show the diagram
 		 *  To do: add listener to show error messages when user enters wrong data
 		 */
-		//JPanel CreatePanel = new JPanel();
-		this.createPanel.setBackground(new Color(0, 102, 102));
-		layeredPane.add(this.createPanel);
-		this.createPanel.setLayout(null);
-		
-		
+
+		this.createPanel = this.addPanel(layeredPane, null, new Color(0, 102, 102), true, 0, 0, 0, 0);
+
 		/*
 		 * InputsRecord Panel
 		 */
@@ -111,10 +111,10 @@ public class ANETA extends GUI {
 		
 		JPanel inputPanel = new JPanel();
 		inputPanel.setBounds(0, 0, 626, 393);
-		this.createPanel.add(inputPanel);
 		inputPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
 		inputPanel.setBackground(new Color(255, 255, 255));
 		inputPanel.setLayout(null);
+		this.createPanel.add(inputPanel);
 		
 		// Add middle side bar components
 		addSideBarInputField(inputPanel, this.txtNetworkName, "Network Name", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", 6, 65, 132, 16);
@@ -217,9 +217,9 @@ public class ANETA extends GUI {
 		addTextField("Where Can I Find the Paths in Created Network?", new EmptyBorder(0, 0, 0, 0), tipsPanel, 45, 58, 323, 26);
 		addTextField("What will happen if I click \"Restart\"?", new EmptyBorder(0, 0, 0, 0), tipsPanel, 45, 96, 283, 26);
 		
-		this.addLabel("", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", tipsPanel, 6, 20, 61, 26);
-		this.addLabel("", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", tipsPanel, 6, 63, 61, 21);
-		this.addLabel("", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", tipsPanel, 6, 96, 61, 26);
+		this.addLabel("", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", null, tipsPanel, null, null, null, 6, 20, 61, 26);
+		this.addLabel("", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", null, tipsPanel, null, null, null, 6, 63, 61, 21);
+		this.addLabel("", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", null, tipsPanel, null, null, null, 6, 96, 61, 26);
 		
 		/*
 		 * this.aboutPanel: contains two panels (ourApplication Panel and ourMembers Panel)
@@ -263,7 +263,7 @@ public class ANETA extends GUI {
 		lblAbout.setBounds(6, 16, 115, 29);
 		this.aboutPanel.add(lblAbout);
 		
-		this.addLabel("", "/CSE360TeamProject/Icons/icons8-monitor-40.png", this.aboutPanel, 6, 65, 47, 32);
+		this.addLabel("", "/CSE360TeamProject/Icons/icons8-monitor-40.png", null, this.aboutPanel, null, null, null, 6, 65, 47, 32);
 		
 		// when user clicks "Our Application", jump to ourApplication Panel
 		txtOurApplication = new JTextField();
@@ -285,8 +285,11 @@ public class ANETA extends GUI {
 		this.aboutPanel.add(txtOurApplication);
 		txtOurApplication.setColumns(10);
 		
-		this.addLabel("", "/CSE360TeamProject/Icons/icons8-group-40.png", this.aboutPanel, 169, 65, 61, 32);
+		this.addLabel("", "/CSE360TeamProject/Icons/icons8-group-40.png", null, this.aboutPanel, null, null, null, 169, 65, 61, 32);
 		
+		// txtOurMembers = this.addTextField("Our Members", new EmptyBorder(0, 0, 0, 0), this.aboutPanel, 212, 71, 130, 26,
+		// this, ourMembers, null, false, null, new Color(255, 255, 255));
+		// TODO:
 		// when user clicks "Our Members", jump to ourMembers Panel
 		txtOurMembers = new JTextField();
 		txtOurMembers.setEditable(false);
@@ -311,70 +314,11 @@ public class ANETA extends GUI {
 		 * HeaderPanel: show project name "ANETA"
 		 */
 		JPanel HeaderPanel = new JPanel();
-		HeaderPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
-		HeaderPanel.setBackground(new Color(255, 255, 255));
-		HeaderPanel.setBounds(0, 0, 834, 79);
-		HeaderPanel.setLayout(null);
-		mainContentPanel.add(HeaderPanel);
-		
-		JLabel ProjectName = new JLabel(" ANETA");
-		ProjectName.setForeground(new Color(0, 102, 102));
-		ProjectName.setFont(new Font("Apple LiGothic", Font.PLAIN, 38));
-		ProjectName.setIcon(new ImageIcon(ANETA.class.getResource("/CSE360TeamProject/Icons/icons8-mind-map-75.png")));
-		ProjectName.setBounds(6, 0, 259, 79);
-		HeaderPanel.add(ProjectName);
-		
-		/*
-		 * MenuPanel: 
-		 * show different options (CreateNetwork, PathsFound, Record, Restart, Help, About)
-		 * allow users to jump to different panels when they click different options
-		 */
-		JPanel MenuPanel = new JPanel();
-		MenuPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
-		MenuPanel.setBackground(new Color(255, 255, 255));
-		MenuPanel.setBounds(0, 78, 177, 411);
-		mainContentPanel.add(MenuPanel);
-		MenuPanel.setLayout(null);
-		
-		txtCreateNetwork = this.addTextField("Create Network", new EmptyBorder(0, 0, 0, 0), MenuPanel, 66, 76, 120, 37, 
-		this, this.createPanel, new Font("Lucida Grande", Font.PLAIN, 13), false, 
-		new Color(0, 102, 102), new Color(255, 255, 255));
+		HeaderPanel = this.addPanel(this.mainContentPanel, new EmptyBorder(0, 0, 0, 0), new Color(255, 255, 255), true, 0, 0, 834, 79);
 
-		// when user clicks "CreateNetwork", jump to this.createPanel
-		this.addLabel("", "/CSE360TeamProject/Icons/icons8-create-36.png", MenuPanel, 24, 71, 90, 37);
-		this.addLabel("", "/CSE360TeamProject/Icons/icons8-save-close-35.png", MenuPanel, 22, 164, 61, 40);
-		
-		//Fix later
-		JLabel recordNum = new JLabel("0");
-		recordNum.setHorizontalAlignment(SwingConstants.CENTER);
-		recordNum.setBounds(96, 158, 48, 26);
-		MenuPanel.add(recordNum);
-		
-		this.addLabel("", "/CSE360TeamProject/Icons/icons8-filled-circle-27.png", MenuPanel, 107, 153, 66, 37);
-		
-		txtRecord = this.addTextField("Record", new EmptyBorder(0, 0, 0, 0), MenuPanel, 67, 167, 48, 37,
-		this, this.recordPanel, null, false, null, new Color(255, 255, 255));
-	
-		this.addLabel("", "/CSE360TeamProject/Icons/icons8-idea-40-2.png", MenuPanel, 19, 264, 90, 40);
-		
-		txtHelp = this.addTextField("Help", new EmptyBorder(0, 0, 0, 0), MenuPanel, 67, 267, 82, 37,
-		this, this.helpPanel, null, false, null, new Color(255, 255, 255));
-	
-		this.addLabel("", "/CSE360TeamProject/Icons/icons8-question-mark-35-2.png", MenuPanel, 19, 319, 61, 40);
-		
-		txtAbout = this.addTextField("About", new EmptyBorder(0, 0, 0, 0), MenuPanel, 67, 328, 130, 26,
-		this, this.aboutPanel, null, false, null, new Color(255, 255, 255));
-	
-		this.addLabel("", "/CSE360TeamProject/Icons/icons8-synchronize-40-2.png", MenuPanel, 19, 216, 61, 37);
-		
-		// when user clicks "Restart", show a pop-up window
+		this.addLabel(" ANETA", "/CSE360TeamProject/Icons/icons8-mind-map-75.png", new Font("Apple LiGothic", Font.PLAIN, 38), 
+		HeaderPanel, null, new Color(0, 102, 102), null, 6, 0, 259, 79);
 
-		txtRestart = this.addTextField("Restart", new EmptyBorder(0, 0, 0, 0), MenuPanel, 66, 223, 130, 26,
-		this, this.aboutPanel, null, false, true, null, new Color(255, 255, 255));
-
-		this.addLabel("", "/CSE360TeamProject/Icons/icons8-hard-to-find-40.png", MenuPanel, 19, 118, 61, 37);
-		
-		txtPathsFound = this.addTextField("Paths Found", new EmptyBorder(0, 0, 0, 0), MenuPanel, 67, 125, 130, 26,
-		this, this.aboutPanel, null, false, null, new Color(255, 255, 255));
+		this.addMainMenuPanel(this);
 	}
 }

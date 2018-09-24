@@ -35,7 +35,7 @@ public class GUI extends JFrame {
 		parentPanel.add(targetField);
 	}
 
-	protected void addLabel(String labelText, String imagePath, Font font, JPanel parentPanel, AbstractBorder border,Color foregroundColor, Color backgroundColor, int x, int y, int width, int height) {
+	protected JLabel addLabel(String labelText, String imagePath, Font font, JPanel parentPanel, AbstractBorder border, Color foregroundColor, Color backgroundColor, int x, int y, int width, int height) {
 		JLabel tmpLabel = new JLabel(labelText);
 		if (imagePath != "") {
 			tmpLabel.setIcon(new ImageIcon(ANETA.class.getResource(imagePath)));
@@ -54,6 +54,7 @@ public class GUI extends JFrame {
 		}
 		tmpLabel.setBounds(x, y, width, height);
 		parentPanel.add(tmpLabel);
+		return tmpLabel;
 	}
 
 

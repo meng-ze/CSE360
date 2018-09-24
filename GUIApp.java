@@ -19,6 +19,10 @@ public class GUIApp extends GUI {
 		recordNum.setBounds(96, 158, 48, 26);
 		mainMenuPanel.add(recordNum);
 		
+		this.addLabel("", "/CSE360TeamProject/Icons/icons8-hard-to-find-40.png", null, mainMenuPanel, null, null, null, 19, 118, 61, 37);
+		txtPathsFound = this.addTextField("Paths Found", new EmptyBorder(0, 0, 0, 0), mainMenuPanel, 67, 125, 130, 26,
+		this, this.pathsFoundPanel, null, false, null, new Color(255, 255, 255));
+
 		this.addLabel("", "/CSE360TeamProject/Icons/icons8-filled-circle-27.png", null, mainMenuPanel, null, null, null, 107, 153, 66, 37);
 		txtRecord = this.addTextField("Record", new EmptyBorder(0, 0, 0, 0), mainMenuPanel, 67, 167, 48, 37,
 		this, this.recordPanel, null, false, null, new Color(255, 255, 255));
@@ -35,8 +39,5 @@ public class GUIApp extends GUI {
 		txtRestart = this.addTextField("Restart", new EmptyBorder(0, 0, 0, 0), mainMenuPanel, 66, 223, 130, 26,
 		this, this.aboutPanel, null, false, true, null, new Color(255, 255, 255));
 
-		this.addLabel("", "/CSE360TeamProject/Icons/icons8-hard-to-find-40.png", null, mainMenuPanel, null, null, null, 19, 118, 61, 37);
-		txtPathsFound = this.addTextField("Paths Found", new EmptyBorder(0, 0, 0, 0), mainMenuPanel, 67, 125, 130, 26,
-		this, this.aboutPanel, null, false, null, new Color(255, 255, 255));
 	}
 }

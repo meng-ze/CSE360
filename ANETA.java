@@ -63,20 +63,10 @@ public class ANETA extends GUIApp {
 		/*
 		 * InputsRecord Panel
 		 */
-		JPanel inputsRecord = new JPanel();
-		inputsRecord.setBorder(new LineBorder(new Color(0, 102, 102), 2));
-		inputsRecord.setBackground(new Color(255, 255, 255));
-		inputsRecord.setBounds(227, 6, 393, 381);
-		this.createPanel.add(inputsRecord);
-		inputsRecord.setLayout(null);
-		
-		JLabel inputRecord_title = new JLabel("Network Diagram");
-		inputRecord_title.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		inputRecord_title.setBackground(new Color(255, 255, 255));
+		JPanel inputsRecord = this.addPanel(this.createPanel, new LineBorder(new Color(0, 102, 102), 2), null, true, 227, 6, 393, 381);
+		JLabel inputRecord_title = this.addLabel("Network Diagram", "", new Font("Lucida Grande", Font.PLAIN, 16), inputsRecord, null, null, new Color(255, 255, 255), 132, 6, 138, 30);
 		inputRecord_title.setHorizontalAlignment(SwingConstants.CENTER);
-		inputRecord_title.setBounds(132, 6, 138, 30);
-		inputsRecord.add(inputRecord_title);
-		
+
 		JScrollPane scrollPane_inputRecord = new JScrollPane();
 		scrollPane_inputRecord.setBounds(6, 39, 381, 285);
 		inputsRecord.add(scrollPane_inputRecord);
@@ -248,10 +238,8 @@ public class ANETA extends GUIApp {
 		About_ourApplication.setBounds(6, 66, 602, 200);
 		ourApplication.add(About_ourApplication);
 		
-		JLabel ApplicationName = new JLabel("Project ANETA \n");
+		JLabel ApplicationName = this.addLabel("Project ANETA \n", "", null, ourApplication, null, null, null, 225, 19, 144, 58);
 		ApplicationName.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-		ApplicationName.setBounds(225, 19, 144, 58);
-		ourApplication.add(ApplicationName);
 		
 		JPanel ourMembers = new JPanel();
 		ourMembers.setBackground(new Color(255, 255, 255));

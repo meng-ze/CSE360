@@ -4,6 +4,8 @@ public class Node {
     public ArrayList<Node> dependencies = new ArrayList<Node>();
     public ArrayList<String> dependencies_key = new ArrayList<String>();
     public ArrayList<Node> nextNodes = new ArrayList<Node>();
+    public ArrayList<String> nextNodes_key = new ArrayList<String>();
+
     public String name;
     public int duration;
     public Boolean traversed = false;
@@ -16,6 +18,6 @@ public class Node {
 
     @Override
     public String toString() {
-        return "Name: " + name + ", Nexts: " + nextNodes;
+        return "Name: " + name + ", Nexts: " + nextNodes_key;
     }
 }

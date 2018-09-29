@@ -7,12 +7,12 @@ public class GUIApp extends GUI {
 	private JLabel numberRecord;
 
 	protected void initializeActionController(GUI guiProgram) {
-		JPanel inputsRecord = this.addPanel(this.createPanel, new LineBorder(new Color(0, 102, 102), 2), null, true, 227, 6, 393, 381);
-		JLabel inputRecord_title = this.addLabel("Network Diagram", "", new Font("Lucida Grande", Font.PLAIN, 16), inputsRecord, null, new Color(255, 255, 255), null, 132, 6, 138, 30);
+		JPanel inputsRecord = this.addPanel(this.createPanel, new LineBorder(new Color(0, 102, 102), 2), null, true, 227, 6, 793, 381);
+		JLabel inputRecord_title = this.addLabel("Network Diagram", "", new Font("Lucida Grande", Font.PLAIN, 16), inputsRecord, null, new Color(255, 255, 255), null, 335, 6, 138, 30);
 		inputRecord_title.setHorizontalAlignment(SwingConstants.CENTER);
 
 		JScrollPane scrollPane_inputRecord = new JScrollPane();
-		scrollPane_inputRecord.setBounds(6, 39, 381, 285);
+		scrollPane_inputRecord.setBounds(6, 39, 781, 285);
 		inputsRecord.add(scrollPane_inputRecord);
 		JTextArea textArea_inputRecord = new JTextArea();
 		scrollPane_inputRecord.setViewportView(textArea_inputRecord);
@@ -26,7 +26,7 @@ public class GUIApp extends GUI {
 		/*
 		 * InputPanel
 		 */
-		JPanel inputPanel = this.addPanel(guiProgram.createPanel, null, new Color(255, 255, 255), true, 0, 0, 626, 393);
+		JPanel inputPanel = this.addPanel(guiProgram.createPanel, null, new Color(255, 255, 255), true, 0, 0, 1026, 393);
 		
 		// Add middle side bar components
 		guiProgram.addSideBarInputField(inputPanel, guiProgram.txtNetworkName, "Network Name", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", 6, 65, 132, 16);

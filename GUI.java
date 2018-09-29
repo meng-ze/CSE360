@@ -17,10 +17,12 @@ public class GUI extends JFrame {
 	protected JTextField txtAbout;
 	protected JTextField txtRestart;
 	protected JTextField txtPathsFound;
+
 	protected JTextField txtNetworkName = new JTextField();
 	protected JTextField txtActivityName = new JTextField();
 	protected JTextField txtDuration = new JTextField();
 	protected JTextField txtDependency = new JTextField();
+
 	protected JTextField SearchBar;
 	protected JTextField txtOurApplication;
 	protected JTextField txtOurMembers;

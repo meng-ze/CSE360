@@ -34,7 +34,7 @@ public class ANETA extends GUIApp {
 	 */
 	public ANETA() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 834, 511);
+		setBounds(100, 100, 1234, 511);
 		mainContentPanel = new JPanel();
 		mainContentPanel.setBackground(new Color(255, 255, 255));
 		mainContentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -48,7 +48,7 @@ public class ANETA extends GUIApp {
 		JLayeredPane layeredPane = new JLayeredPane();
 		layeredPane.setBackground(new Color(255, 255, 255));
 		layeredPane.setBorder(new LineBorder(new Color(0, 102, 102), 6));
-		layeredPane.setBounds(190, 78, 638, 405);
+		layeredPane.setBounds(190, 78, 1038, 405);
 		mainContentPanel.add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 		
@@ -80,11 +80,11 @@ public class ANETA extends GUIApp {
 		JLabel pathsFound_title = new JLabel("Paths in Network");
 		pathsFound_title.setHorizontalAlignment(SwingConstants.CENTER);
 		pathsFound_title.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
-		pathsFound_title.setBounds(249, 22, 153, 35);
+		pathsFound_title.setBounds(449, 22, 153, 35);
 		this.pathsFoundPanel.add(pathsFound_title);
 		
 		JScrollPane scrollPane_PathsFound = new JScrollPane();
-		scrollPane_PathsFound.setBounds(21, 70, 587, 298);
+		scrollPane_PathsFound.setBounds(21, 70, 987, 298);
 		this.pathsFoundPanel.add(scrollPane_PathsFound);
 		
 		JTextArea textArea_PathsFound = new JTextArea();
@@ -106,11 +106,11 @@ public class ANETA extends GUIApp {
 		JLabel recordPanel_title = new JLabel("NetWork Diagram Record");
 		recordPanel_title.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		recordPanel_title.setHorizontalAlignment(SwingConstants.CENTER);
-		recordPanel_title.setBounds(221, 23, 198, 35);
+		recordPanel_title.setBounds(430, 23, 198, 35);
 		this.recordPanel.add(recordPanel_title);
 		
 		JScrollPane scrollPane_Record = new JScrollPane();
-		scrollPane_Record.setBounds(6, 70, 614, 253);
+		scrollPane_Record.setBounds(6, 70, 1014, 253);
 		this.recordPanel.add(scrollPane_Record);
 		
 		JTextArea textArea_networkRecord = new JTextArea();
@@ -118,7 +118,7 @@ public class ANETA extends GUIApp {
 		
 		JButton beleteButton = new JButton("Delete");
 		beleteButton.setIcon(new ImageIcon(ANETA.class.getResource("/CSE360TeamProject/Icons/icons8-trash-32.png")));
-		beleteButton.setBounds(265, 345, 117, 42);
+		beleteButton.setBounds(465, 345, 117, 42);
 		this.recordPanel.add(beleteButton);
 		
 		/*

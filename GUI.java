@@ -57,6 +57,19 @@ public class GUI extends JFrame {
 		return tmpLabel;
 	}
 
+	protected JButton addButton(String title, JComponent parent, String imagePath, ActionListener action, int x, int y, int width, int height) {
+		JButton tmpButton = new JButton(title);
+		if (imagePath != "") {
+			tmpButton.setIcon(new ImageIcon(ANETA.class.getResource(imagePath)));
+		}
+		if (action != null) {
+			tmpButton.addActionListener(action);
+		}
+		parent.add(tmpButton);
+		tmpButton.setBounds(x, y, width, height);
+
+		return tmpButton;
+	}
 
 	protected JTextField addTextField(String title, AbstractBorder border, JPanel parentPanel, int x, int y, int width, int height) {
 		JTextField tmpTextField = new JTextField();

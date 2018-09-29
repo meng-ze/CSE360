@@ -3,15 +3,19 @@
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
-
 import javafx.scene.layout.Border;
-
 import java.awt.event.*;
 
 public class ANETA extends GUIApp {
 	/**
 	 * Launch the application.
 	 */
+
+	// public static void main(String [] args) {
+	// 	ANETA mainProgram = new ANETA();
+	// 	mainProgram.setVisible(true);
+	// }
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -64,7 +68,7 @@ public class ANETA extends GUIApp {
 		 * InputsRecord Panel
 		 */
 		JPanel inputsRecord = this.addPanel(this.createPanel, new LineBorder(new Color(0, 102, 102), 2), null, true, 227, 6, 393, 381);
-		JLabel inputRecord_title = this.addLabel("Network Diagram", "", new Font("Lucida Grande", Font.PLAIN, 16), inputsRecord, null, null, new Color(255, 255, 255), 132, 6, 138, 30);
+		JLabel inputRecord_title = this.addLabel("Network Diagram", "", new Font("Lucida Grande", Font.PLAIN, 16), inputsRecord, null, new Color(255, 255, 255), null, 132, 6, 138, 30);
 		inputRecord_title.setHorizontalAlignment(SwingConstants.CENTER);
 
 		JScrollPane scrollPane_inputRecord = new JScrollPane();
@@ -72,28 +76,12 @@ public class ANETA extends GUIApp {
 		inputsRecord.add(scrollPane_inputRecord);
 		JTextArea textArea_inputRecord = new JTextArea();
 		scrollPane_inputRecord.setViewportView(textArea_inputRecord);
-		JButton cleanButton = new JButton("Clean");
-		cleanButton.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent e) 
-			{
-				JOptionPane.showConfirmDialog(null, "Do you want to clean the entire network diagram?", "WARNING", JOptionPane.YES_NO_CANCEL_OPTION);
-			}
-		});
-		cleanButton.setIcon(new ImageIcon(ANETA.class.getResource("/CSE360TeamProject/Icons/icons8-disposal-32-2.png")));
-		cleanButton.setBounds(141, 336, 117, 39);
-		inputsRecord.add(cleanButton);
-		
-		JButton processButton = new JButton("Process");
-		processButton.setIcon(new ImageIcon(ANETA.class.getResource("/CSE360TeamProject/Icons/icons8-checkmark-26.png")));
-		processButton.setBounds(270, 336, 117, 39);
-		inputsRecord.add(processButton);
-		
-		JButton undoButton = new JButton("Undo");
-		undoButton.setIcon(new ImageIcon(ANETA.class.getResource("/CSE360TeamProject/Icons/icons8-undo-26.png")));
-		undoButton.setBounds(6, 336, 123, 39);
-		inputsRecord.add(undoButton);
-		
+
+		JButton cleanButton = this.addButton("Clean", inputsRecord, "/CSE360TeamProject/Icons/icons8-disposal-32-2.png", null, 141, 336, 117, 39); 
+		cleanButton.addActionListener(new kWarningPopup("Do you want to clean the entire network diagram?"));
+
+		JButton undoButton = this.addButton("Undo", inputsRecord, "/CSE360TeamProject/Icons/icons8-undo-26.png", null, 6, 336, 123, 39);
+		JButton analyzeButton = this.addButton("Analyze", inputsRecord, "/CSE360TeamProject/Icons/icons8-checkmark-26.png", null, 270, 336, 117, 39);
 		
 		/*
 		 * InputPanel
@@ -113,9 +101,7 @@ public class ANETA extends GUIApp {
 		addSideBarInputField(inputPanel, this.txtDependency, "Dependency", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", 6, 232, 132, 16);
 		
 		// "Enter" Button
-		JButton enterButton = new JButton("Enter");
-		enterButton.setBounds(41, 315, 117, 29);
-		inputPanel.add(enterButton);
+		JButton enterButton = this.addButton("Enter", inputPanel, "", null, 41, 315, 117, 29);
 		
 		/*
 		 * this.pathsFoundPanel: show all paths found after user clicks "Process" Button
@@ -281,8 +267,7 @@ public class ANETA extends GUIApp {
 		// when user clicks "Our Members", jump to ourMembers Panel
 		txtOurMembers = new JTextField();
 		txtOurMembers.setEditable(false);
-		txtOurMembers.addMouseListener(new MouseAdapter() 
-		{
+		txtOurMembers.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) 
 			{

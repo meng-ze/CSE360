@@ -25,7 +25,9 @@ public class kMouseAdapter extends MouseAdapter {
     @Override
     public void mouseClicked(MouseEvent e) {
         if (this.extraConfirmation) {
-            JOptionPane.showConfirmDialog(null, "Do you want to reset this application?", "WARNING", JOptionPane.YES_NO_CANCEL_OPTION);
+            JOptionPane.showConfirmDialog(null, 
+            "Are you sure to \"RESET\" previous result?\nAll content will be missing.", "WARNING", 
+            JOptionPane.YES_NO_CANCEL_OPTION);
         } else {
             this.targetApp.createPanel.setVisible(false);
             this.targetApp.pathsFoundPanel.setVisible(false);

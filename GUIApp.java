@@ -4,6 +4,8 @@ import javax.swing.border.*;
 import java.awt.event.*;
 
 public class GUIApp extends GUI {
+	private JLabel numberRecord;
+
     protected void addMainMenuPanel(GUI guiProgram) {
 		JPanel mainMenuPanel = this.addPanel(mainContentPanel, new EmptyBorder(0, 0, 0, 0), new Color(255, 255, 255), true, 0, 78, 177, 411);
 	
@@ -14,10 +16,8 @@ public class GUIApp extends GUI {
 		this.addLabel("", "/CSE360TeamProject/Icons/icons8-create-36.png", null, mainMenuPanel, null, null, null, 24, 71, 90, 37);
 		this.addLabel("", "/CSE360TeamProject/Icons/icons8-save-close-35.png", null, mainMenuPanel, null, null, null, 22, 164, 61, 40);
 		
-		JLabel recordNum = new JLabel("0");
-		recordNum.setHorizontalAlignment(SwingConstants.CENTER);
-		recordNum.setBounds(96, 158, 48, 26);
-		mainMenuPanel.add(recordNum);
+		this.numberRecord = this.addLabel("0", "", null, mainMenuPanel, null, null, null, 96, 158, 48, 26);
+		this.numberRecord.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		this.addLabel("", "/CSE360TeamProject/Icons/icons8-hard-to-find-40.png", null, mainMenuPanel, null, null, null, 19, 118, 61, 37);
 		txtPathsFound = this.addTextField("Paths Found", new EmptyBorder(0, 0, 0, 0), mainMenuPanel, 67, 125, 130, 26,
@@ -38,6 +38,5 @@ public class GUIApp extends GUI {
 		this.addLabel("", "/CSE360TeamProject/Icons/icons8-synchronize-40-2.png", null, mainMenuPanel, null, null, null, 19, 216, 61, 37);
 		txtRestart = this.addTextField("Restart", new EmptyBorder(0, 0, 0, 0), mainMenuPanel, 66, 223, 130, 26,
 		this, this.aboutPanel, null, false, true, null, new Color(255, 255, 255));
-
 	}
 }

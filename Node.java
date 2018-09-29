@@ -18,6 +18,6 @@ public class Node {
 
     @Override
     public String toString() {
-        return "Name: " + name + ", Nexts: " + nextNodes_key;
+        return "Name: "+name+", Nexts: "+nextNodes_key+", Dependencies: "+dependencies_key;
     }
 }

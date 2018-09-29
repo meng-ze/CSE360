@@ -6,6 +6,38 @@ import java.awt.event.*;
 public class GUIApp extends GUI {
 	private JLabel numberRecord;
 
+	protected void initializeActionController(GUI guiProgram) {
+		JPanel inputsRecord = this.addPanel(this.createPanel, new LineBorder(new Color(0, 102, 102), 2), null, true, 227, 6, 393, 381);
+		JLabel inputRecord_title = this.addLabel("Network Diagram", "", new Font("Lucida Grande", Font.PLAIN, 16), inputsRecord, null, new Color(255, 255, 255), null, 132, 6, 138, 30);
+		inputRecord_title.setHorizontalAlignment(SwingConstants.CENTER);
+
+		JScrollPane scrollPane_inputRecord = new JScrollPane();
+		scrollPane_inputRecord.setBounds(6, 39, 381, 285);
+		inputsRecord.add(scrollPane_inputRecord);
+		JTextArea textArea_inputRecord = new JTextArea();
+		scrollPane_inputRecord.setViewportView(textArea_inputRecord);
+
+		JButton cleanButton = guiProgram.addButton("Clean", inputsRecord, "/CSE360TeamProject/Icons/icons8-disposal-32-2.png", null, 141, 336, 117, 39); 
+		cleanButton.addActionListener(new kWarningPopup("Do you want to clean the entire network diagram?"));
+
+		JButton undoButton = guiProgram.addButton("Undo", inputsRecord, "/CSE360TeamProject/Icons/icons8-undo-26.png", null, 6, 336, 123, 39);
+		JButton analyzeButton = guiProgram.addButton("Analyze", inputsRecord, "/CSE360TeamProject/Icons/icons8-checkmark-26.png", null, 270, 336, 117, 39);
+		
+		/*
+		 * InputPanel
+		 */
+		JPanel inputPanel = this.addPanel(guiProgram.createPanel, null, new Color(255, 255, 255), true, 0, 0, 626, 393);
+		
+		// Add middle side bar components
+		guiProgram.addSideBarInputField(inputPanel, guiProgram.txtNetworkName, "Network Name", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", 6, 65, 132, 16);
+		guiProgram.addSideBarInputField(inputPanel, guiProgram.txtActivityName, "Activity Name", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", 6, 120, 132, 16);
+		guiProgram.addSideBarInputField(inputPanel, guiProgram.txtDuration, "Duration", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", 6, 176, 132, 16);
+		guiProgram.addSideBarInputField(inputPanel, guiProgram.txtDependency, "Dependency", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", 6, 232, 132, 16);
+		
+		// "Enter" Button
+		JButton enterButton = this.addButton("Enter", inputPanel, "", null, 41, 315, 117, 29);
+	}
+
     protected void addMainMenuPanel(GUI guiProgram) {
 		JPanel mainMenuPanel = this.addPanel(mainContentPanel, new EmptyBorder(0, 0, 0, 0), new Color(255, 255, 255), true, 0, 78, 177, 411);
 	

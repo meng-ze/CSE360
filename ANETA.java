@@ -64,45 +64,9 @@ public class ANETA extends GUIApp {
 
 		this.createPanel = this.addPanel(layeredPane, null, new Color(0, 102, 102), true, 0, 0, 0, 0);
 
-		/*
-		 * InputsRecord Panel
-		 */
-		JPanel inputsRecord = this.addPanel(this.createPanel, new LineBorder(new Color(0, 102, 102), 2), null, true, 227, 6, 393, 381);
-		JLabel inputRecord_title = this.addLabel("Network Diagram", "", new Font("Lucida Grande", Font.PLAIN, 16), inputsRecord, null, new Color(255, 255, 255), null, 132, 6, 138, 30);
-		inputRecord_title.setHorizontalAlignment(SwingConstants.CENTER);
+		// Initialize input fields
+		this.initializeActionController(this);
 
-		JScrollPane scrollPane_inputRecord = new JScrollPane();
-		scrollPane_inputRecord.setBounds(6, 39, 381, 285);
-		inputsRecord.add(scrollPane_inputRecord);
-		JTextArea textArea_inputRecord = new JTextArea();
-		scrollPane_inputRecord.setViewportView(textArea_inputRecord);
-
-		JButton cleanButton = this.addButton("Clean", inputsRecord, "/CSE360TeamProject/Icons/icons8-disposal-32-2.png", null, 141, 336, 117, 39); 
-		cleanButton.addActionListener(new kWarningPopup("Do you want to clean the entire network diagram?"));
-
-		JButton undoButton = this.addButton("Undo", inputsRecord, "/CSE360TeamProject/Icons/icons8-undo-26.png", null, 6, 336, 123, 39);
-		JButton analyzeButton = this.addButton("Analyze", inputsRecord, "/CSE360TeamProject/Icons/icons8-checkmark-26.png", null, 270, 336, 117, 39);
-		
-		/*
-		 * InputPanel
-		 */
-		
-		JPanel inputPanel = new JPanel();
-		inputPanel.setBounds(0, 0, 626, 393);
-		inputPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
-		inputPanel.setBackground(new Color(255, 255, 255));
-		inputPanel.setLayout(null);
-		this.createPanel.add(inputPanel);
-		
-		// Add middle side bar components
-		addSideBarInputField(inputPanel, this.txtNetworkName, "Network Name", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", 6, 65, 132, 16);
-		addSideBarInputField(inputPanel, this.txtActivityName, "Activity Name", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", 6, 120, 132, 16);
-		addSideBarInputField(inputPanel, this.txtDuration, "Duration", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", 6, 176, 132, 16);
-		addSideBarInputField(inputPanel, this.txtDependency, "Dependency", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", 6, 232, 132, 16);
-		
-		// "Enter" Button
-		JButton enterButton = this.addButton("Enter", inputPanel, "", null, 41, 315, 117, 29);
-		
 		/*
 		 * this.pathsFoundPanel: show all paths found after user clicks "Process" Button
 		 * 

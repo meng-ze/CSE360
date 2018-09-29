@@ -5,6 +5,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javafx.scene.layout.Border;
 import java.awt.event.*;
+import java.util.HashMap;
 
 public class ANETA extends GUIApp {
 	/**
@@ -32,6 +33,7 @@ public class ANETA extends GUIApp {
 	/*
 	 * Create the frame.
 	 */
+
 	public ANETA() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1234, 511);
@@ -65,7 +67,7 @@ public class ANETA extends GUIApp {
 		this.createPanel = this.addPanel(layeredPane, null, new Color(0, 102, 102), true, 0, 0, 0, 0);
 
 		// Initialize input fields
-		this.initializeActionController(this);
+		this.initializeActionController();
 
 		/*
 		 * this.pathsFoundPanel: show all paths found after user clicks "Process" Button
@@ -256,6 +258,6 @@ public class ANETA extends GUIApp {
 		this.addLabel(" ANETA", "/CSE360TeamProject/Icons/icons8-mind-map-75.png", new Font("Apple LiGothic", Font.PLAIN, 38), 
 		HeaderPanel, null, new Color(0, 102, 102), null, 6, 0, 259, 79);
 
-		this.addMainMenuPanel(this);
+		this.addMainMenuPanel();
 	}
 }

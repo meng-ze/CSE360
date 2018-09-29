@@ -18,10 +18,6 @@ public class GUI extends JFrame {
 	protected JTextField txtRestart;
 	protected JTextField txtPathsFound;
 
-	protected JTextField txtNetworkName = new JTextField();
-	protected JTextField txtActivityName = new JTextField();
-	protected JTextField txtDuration = new JTextField();
-	protected JTextField txtDependency = new JTextField();
 
 	protected JTextField SearchBar;
 	protected JTextField txtOurApplication;
@@ -32,6 +28,7 @@ public class GUI extends JFrame {
 		targetLabel.setIcon(new ImageIcon(ANETA.class.getResource(iconPath)));
 		targetLabel.setBounds(x, y, width, height);
 		parentPanel.add(targetLabel);
+		targetField.setEditable(true);
 		
 		targetField.setBounds(28, y+18, 152, height+10);
 		parentPanel.add(targetField);

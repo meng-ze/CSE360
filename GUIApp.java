@@ -2,11 +2,43 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.event.*;
+import java.util.*;
 
 public class GUIApp extends GUI {
 	private JLabel numberRecord;
 
-	protected void initializeActionController(GUI guiProgram) {
+	protected JTextField txtNetworkName = new JTextField();
+	protected JTextField txtActivityName = new JTextField();
+	protected JTextField txtDuration = new JTextField();
+	protected JTextField txtDependency = new JTextField();
+
+	public HashMap<String, ArrayList<Node>> networkTable = new HashMap<String, ArrayList<Node>>();
+
+	public ArrayList<Node> nodeList = new ArrayList<Node>();
+	private HashMap<String, Node> nodeMaps = new HashMap<String, Node>();
+    public void addNodeIntoNodeList(String nodeName, ArrayList<String> dependencies, String durationStr) {
+        if (nodeName.isEmpty() || nodeName == null) {
+            JOptionPane.showConfirmDialog(null, "Please input node name!", "WARNING", JOptionPane.DEFAULT_OPTION);
+            return;
+        }
+        if (!GUIApp.isInt(durationStr)) {
+            JOptionPane.showConfirmDialog(null, "Please input Integer value in duration field!", "WARNING", JOptionPane.DEFAULT_OPTION);
+            return;
+		}
+		if (this.nodeMaps.containsKey(nodeName)) {
+            JOptionPane.showConfirmDialog(null, "Node: \"" + nodeName + "\" is already exist!\n Try using other name", "WARNING", JOptionPane.DEFAULT_OPTION);
+            return;
+		}
+		Node newNode = new Node(nodeName, Integer.parseInt(durationStr));
+		for (String key: dependencies) {
+			newNode.dependencies_key.add(key);
+		}
+		this.nodeMaps.put(nodeName, newNode);
+
+		System.out.printf("%s\n", this.nodeMaps);
+    }
+
+	protected void initializeActionController() {
 		JPanel inputsRecord = this.addPanel(this.createPanel, new LineBorder(new Color(0, 102, 102), 2), null, true, 227, 6, 793, 381);
 		JLabel inputRecord_title = this.addLabel("Network Diagram", "", new Font("Lucida Grande", Font.PLAIN, 16), inputsRecord, null, new Color(255, 255, 255), null, 335, 6, 138, 30);
 		inputRecord_title.setHorizontalAlignment(SwingConstants.CENTER);
@@ -17,28 +49,29 @@ public class GUIApp extends GUI {
 		JTextArea textArea_inputRecord = new JTextArea();
 		scrollPane_inputRecord.setViewportView(textArea_inputRecord);
 
-		JButton cleanButton = guiProgram.addButton("Clean", inputsRecord, "/CSE360TeamProject/Icons/icons8-disposal-32-2.png", null, 141, 336, 117, 39); 
+		JButton cleanButton = this.addButton("Clean", inputsRecord, "/CSE360TeamProject/Icons/icons8-disposal-32-2.png", null, 141, 336, 117, 39); 
 		cleanButton.addActionListener(new kWarningPopup("Do you want to clean the entire network diagram?"));
 
-		JButton undoButton = guiProgram.addButton("Undo", inputsRecord, "/CSE360TeamProject/Icons/icons8-undo-26.png", null, 6, 336, 123, 39);
-		JButton analyzeButton = guiProgram.addButton("Analyze", inputsRecord, "/CSE360TeamProject/Icons/icons8-checkmark-26.png", null, 270, 336, 117, 39);
+		JButton undoButton = this.addButton("Undo", inputsRecord, "/CSE360TeamProject/Icons/icons8-undo-26.png", null, 6, 336, 123, 39);
+		JButton analyzeButton = this.addButton("Analyze", inputsRecord, "/CSE360TeamProject/Icons/icons8-checkmark-26.png", null, 270, 336, 117, 39);
 		
 		/*
 		 * InputPanel
 		 */
-		JPanel inputPanel = this.addPanel(guiProgram.createPanel, null, new Color(255, 255, 255), true, 0, 0, 1026, 393);
+		JPanel inputPanel = this.addPanel(this.createPanel, null, new Color(255, 255, 255), true, 0, 0, 1026, 393);
 		
 		// Add middle side bar components
-		guiProgram.addSideBarInputField(inputPanel, guiProgram.txtNetworkName, "Network Name", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", 6, 65, 132, 16);
-		guiProgram.addSideBarInputField(inputPanel, guiProgram.txtActivityName, "Activity Name", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", 6, 120, 132, 16);
-		guiProgram.addSideBarInputField(inputPanel, guiProgram.txtDuration, "Duration", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", 6, 176, 132, 16);
-		guiProgram.addSideBarInputField(inputPanel, guiProgram.txtDependency, "Dependency", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", 6, 232, 132, 16);
+		this.addSideBarInputField(inputPanel, this.txtNetworkName, "Network Name", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", 6, 65, 132, 16);
+		this.addSideBarInputField(inputPanel, this.txtActivityName, "Activity Name", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", 6, 120, 132, 16);
+		this.addSideBarInputField(inputPanel, this.txtDuration, "Duration", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", 6, 176, 132, 16);
+		this.addSideBarInputField(inputPanel, this.txtDependency, "Dependency", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", 6, 232, 132, 16);
 		
 		// "Enter" Button
 		JButton enterButton = this.addButton("Enter", inputPanel, "", null, 41, 315, 117, 29);
+		enterButton.addActionListener(new kInsertNodeAction(this));
 	}
 
-    protected void addMainMenuPanel(GUI guiProgram) {
+    protected void addMainMenuPanel() {
 		JPanel mainMenuPanel = this.addPanel(mainContentPanel, new EmptyBorder(0, 0, 0, 0), new Color(255, 255, 255), true, 0, 78, 177, 411);
 	
 		txtCreateNetwork = this.addTextField("Create Network", new EmptyBorder(0, 0, 0, 0), mainMenuPanel, 66, 76, 120, 37, 
@@ -71,4 +104,16 @@ public class GUIApp extends GUI {
 		txtRestart = this.addTextField("Restart", new EmptyBorder(0, 0, 0, 0), mainMenuPanel, 66, 223, 130, 26,
 		this, this.aboutPanel, null, false, true, null, new Color(255, 255, 255));
 	}
+
+	public static Boolean isInt(String s) {
+        try { 
+            Integer.parseInt(s); 
+        } catch (NullPointerException nulExcept) {
+            return false;
+        } catch (NumberFormatException formatExcept) { 
+            return false; 
+        }
+        // only got here if we didn't return false
+        return true;
+    }
 }

@@ -17,10 +17,6 @@ public class Tree {
         }
     }
 
-
-    //TODO:
-    // if this return true, the graphic contains dependency cycle
-    // return false if dependency do not form any cycle
     public Boolean containsCycle() {
         this.resetTraverseStatus();
 

@@ -11,11 +11,29 @@ public class GUIApp extends GUI {
 	protected JTextField txtActivityName = new JTextField();
 	protected JTextField txtDuration = new JTextField();
 	protected JTextField txtDependency = new JTextField();
+	protected JTextArea textArea_inputRecord;
 
 	public HashMap<String, ArrayList<Node>> networkTable = new HashMap<String, ArrayList<Node>>();
 
 	public ArrayList<Node> nodeList = new ArrayList<Node>();
 	private HashMap<String, Node> nodeMaps = new HashMap<String, Node>();
+
+	public void updateTextRecord() {
+		this.textArea_inputRecord.setEditable(true);
+		this.textArea_inputRecord.setText("");
+		String tmpString = "";
+		for (Node node: this.nodeList) {
+			tmpString += "Activity name:\t";
+			tmpString += node.name;
+			tmpString += "\tDuration:\t";
+			tmpString += node.duration;
+			tmpString += "\tDependencies:\t";
+			tmpString += node.dependencies_key;
+			tmpString += "\n";
+		}
+		this.textArea_inputRecord.setText(tmpString);
+		this.textArea_inputRecord.setEditable(false);
+	}
     public void addNodeIntoNodeList(String nodeName, ArrayList<String> dependencies, String durationStr) {
         if (nodeName.isEmpty() || nodeName == null) {
             JOptionPane.showConfirmDialog(null, "Please input node name!", "WARNING", JOptionPane.DEFAULT_OPTION);
@@ -34,8 +52,8 @@ public class GUIApp extends GUI {
 			newNode.dependencies_key.add(key);
 		}
 		this.nodeMaps.put(nodeName, newNode);
-
-		System.out.printf("%s\n", this.nodeMaps);
+		this.nodeList.add(newNode);
+		this.updateTextRecord();
 	}
 
 	private void clearTextField() {
@@ -52,7 +70,7 @@ public class GUIApp extends GUI {
 		JScrollPane scrollPane_inputRecord = new JScrollPane();
 		scrollPane_inputRecord.setBounds(6, 39, 781, 285);
 		inputsRecord.add(scrollPane_inputRecord);
-		JTextArea textArea_inputRecord = new JTextArea();
+		textArea_inputRecord = new JTextArea();
 		scrollPane_inputRecord.setViewportView(textArea_inputRecord);
 
 		JButton cleanButton = this.addButton("Clean", inputsRecord, "/CSE360TeamProject/Icons/icons8-disposal-32-2.png", null, 141, 336, 117, 39); 

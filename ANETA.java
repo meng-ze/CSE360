@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import javafx.scene.layout.Border;
+
 import java.awt.event.*;
 import java.util.HashMap;
 
@@ -33,7 +34,6 @@ public class ANETA extends GUIApp {
 	/*
 	 * Create the frame.
 	 */
-
 	public ANETA() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1234, 511);

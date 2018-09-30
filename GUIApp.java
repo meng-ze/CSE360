@@ -36,7 +36,13 @@ public class GUIApp extends GUI {
 		this.nodeMaps.put(nodeName, newNode);
 
 		System.out.printf("%s\n", this.nodeMaps);
-    }
+	}
+
+	private void clearTextField() {
+		this.txtActivityName.setText("");
+		this.txtDuration.setText("");
+		this.txtDependency.setText("");
+	}
 
 	protected void initializeActionController() {
 		JPanel inputsRecord = this.addPanel(this.createPanel, new LineBorder(new Color(0, 102, 102), 2), null, true, 227, 6, 793, 381);
@@ -65,6 +71,9 @@ public class GUIApp extends GUI {
 		this.addSideBarInputField(inputPanel, this.txtActivityName, "Activity Name", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", 6, 120, 132, 16);
 		this.addSideBarInputField(inputPanel, this.txtDuration, "Duration", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", 6, 176, 132, 16);
 		this.addSideBarInputField(inputPanel, this.txtDependency, "Dependency", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", 6, 232, 132, 16);
+		this.txtNetworkName.setText("Default Network");
+		this.txtNetworkName.setEditable(false);
+		
 		
 		// "Enter" Button
 		JButton enterButton = this.addButton("Enter", inputPanel, "", null, 41, 315, 117, 29);

@@ -5,6 +5,8 @@ public class Tree {
     public HashMap<String, Node> nodeDict = new HashMap<String, Node>();
     public ArrayList<Node> rawData = new ArrayList<Node>();
 
+    public HashMap<String, Node> endPoint = new HashMap<String, Node>();
+
     private int step = 0;
 
     public Tree(ArrayList<Node> nodes) {
@@ -61,9 +63,15 @@ public class Tree {
     private void dfs_aux(Node node) {
         if (!node.traversed) {
             node.traversed = true;
-            for (Node next: node.nextNodes) {
-                if (!next.traversed) {
-                    dfs_aux(next);
+            if (node.nextNodes.size() == 0) {
+                if (!endPoint.containsKey(node.name)) {
+                    this.endPoint.put(node.name, node);
+                }
+            } else {
+                for (Node next: node.nextNodes) {
+                    if (!next.traversed) {
+                        dfs_aux(next);
+                    }
                 }
             }
             this.step += 1;
@@ -118,18 +126,30 @@ public class Tree {
 
                     finishedSet.add(tmpNode.name);
                 } else {
-                    for (String key: tmpNode.dependencies_key) {
-                        if (!finishedSet.contains(key)) {
-                            remainQueue.remove(0);
-                            remainQueue.add(tmpNode);
-                            break;
+                    Boolean keepSearching = true;
+
+                    while(keepSearching) {
+                        keepSearching = false;
+                        System.out.printf("Processing: %s\n", remainQueue.get(0).name);
+                        for (String key: remainQueue.get(0).dependencies_key) {
+                            if (!finishedSet.contains(key) && !key.isEmpty()) {
+                                System.out.printf("key: %s not exist in finished list\n", key);
+                                remainQueue.add(remainQueue.remove(0));
+                                keepSearching = true;
+                                break;
+                            }
                         }
                     }
+                    tmpNode = remainQueue.get(0);
                     
                     int tmpMax = -1;
                     for (String key: tmpNode.dependencies_key) {
-                        if (nodeDict.get(key).earlyFinish > tmpMax) {
-                            tmpMax = nodeDict.get(key).earlyFinish;
+                        if (!key.isEmpty()) {
+                            if (nodeDict.get(key).earlyFinish > tmpMax) {
+                                tmpMax = nodeDict.get(key).earlyFinish;
+                            }
+                        } else {
+                            tmpMax = 0;
                         }
                     }
                     tmpNode.earlyStart = tmpMax;
@@ -168,6 +188,14 @@ public class Tree {
         }
     }
 
+    public Boolean isNotConnected() {
+        System.out.printf("End point count: %s\n", this.endPoint.size());
+        if (this.endPoint.keySet().size() == 1) {
+            return false;
+        }
+        return true;
+    }
+
     public static void main(String [] args) {
         ArrayList<Node> testList = new ArrayList<Node>();
         Node a = new Node("a", 5);
@@ -178,6 +206,8 @@ public class Tree {
         Node f = new Node("f", 2);
         Node g = new Node("g", 1);
         Node h = new Node("h", 7);
+        Node i = new Node("i", 4);
+        Node j = new Node("j", 9);
 
         b.dependencies_key.add("a");
         
@@ -197,10 +227,15 @@ public class Tree {
 
         h.dependencies_key.add("d");
 
+        i.dependencies_key.add("");
+        j.dependencies_key.add("i");
+
         testList.add(c);
         testList.add(h);
+        //testList.add(j);
         testList.add(e);
         testList.add(b);
+        //testList.add(i);
         testList.add(a);
         testList.add(g);
         testList.add(d);
@@ -217,9 +252,14 @@ public class Tree {
         tree.traverse();
 
         System.out.printf("tree contains cycle? %s\n", tree.containsCycle());
+        System.out.printf("Anything not connected? %s\n", tree.isNotConnected());
 
-        tree.constructPertDiagram(true);
-        tree.constructPertDiagram(false);
+        if (!tree.isNotConnected()) {
+            tree.constructPertDiagram(true);
+            tree.constructPertDiagram(false);
+        } else {
+            System.out.printf("Cannot construct pert diagram.\n");
+        }
 
         for (Node node: tree.orderList) {
             System.out.printf("%s\t: [%d, %d, %d | %d, %d]\n", node.name, node.earlyStart, node.duration, node.earlyFinish,

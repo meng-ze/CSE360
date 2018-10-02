@@ -14,11 +14,6 @@ public class kInsertNodeAction implements ActionListener {
         String dependencyStr = app.txtDependency.getText();
         String durationStr   = app.txtDuration.getText();
 
-        System.out.printf("%s\n", networkName);
-        System.out.printf("%s\n", activityName);
-        System.out.printf("%s\n", dependencyStr);
-        System.out.printf("%s\n", durationStr);
-
         ArrayList<String> dependencies = new ArrayList<String>();
         for (String str: dependencyStr.split("\\s*,\\s*")) {
             dependencies.add(str);

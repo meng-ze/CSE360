@@ -11,10 +11,6 @@ public class Tree {
         for (Node n: nodes) {
             nodeDict.put(n.name, n);
         }
-        constructAscendentList();
-        for (Node n: nodeDict.values()) {
-            rawData.add(n);
-        }
     }
 
     public Boolean containsCycle() {
@@ -76,14 +72,21 @@ public class Tree {
         }
     }
 
-    private void constructAscendentList() {
+    public Boolean constructAscendentList() {
         for (String key: this.nodeDict.keySet()) {
-            for (String dep_key: nodeDict.get(key).dependencies_key) {
-                (this.nodeDict.get(key)).dependencies.add(nodeDict.get(dep_key));
-                nodeDict.get(dep_key).nextNodes.add(this.nodeDict.get(key));
-                nodeDict.get(dep_key).nextNodes_key.add(key);
+            for (String dep_key: this.nodeDict.get(key).dependencies_key) {
+                if (this.nodeDict.containsKey(dep_key)) {
+                    (this.nodeDict.get(key)).dependencies.add(this.nodeDict.get(dep_key));
+                    this.nodeDict.get(dep_key).nextNodes.add(this.nodeDict.get(key));
+                    this.nodeDict.get(dep_key).nextNodes_key.add(key);
+                } else if (dep_key.isEmpty()) {
+
+                } else {
+                    return false;
+                }
             }
         }        
+        return true;
     }
 
     public static void main(String [] args) {

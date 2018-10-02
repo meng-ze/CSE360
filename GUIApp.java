@@ -6,6 +6,7 @@ import java.util.*;
 
 public class GUIApp extends GUI {
 	private JLabel numberRecord;
+	public int graphNumber = 1;
 
 	protected JTextField txtNetworkName = new JTextField();
 	protected JTextField txtActivityName = new JTextField();
@@ -13,14 +14,21 @@ public class GUIApp extends GUI {
 	protected JTextField txtDependency = new JTextField();
 	protected JTextArea textArea_inputRecord;
 
-	public HashMap<String, ArrayList<Node>> networkTable = new HashMap<String, ArrayList<Node>>();
+	public HashMap<String, Tree> historyNetworks = new HashMap<String, Tree>();
 
 	public ArrayList<Node> nodeList = new ArrayList<Node>();
 	private HashMap<String, Node> nodeMaps = new HashMap<String, Node>();
 
+	public void resetAllNodes() {
+		this.nodeList.clear();
+		this.nodeMaps.clear();
+		this.updateTextRecord();
+		this.txtNetworkName.setText("Network " + this.graphNumber);
+	}
+
 	public void updateTextRecord() {
 		this.textArea_inputRecord.setEditable(true);
-		this.textArea_inputRecord.setText("");
+		this.textArea_inputRecord.setText(" ");
 		String tmpString = "";
 		for (Node node: this.nodeList) {
 			tmpString += "Activity name:\t";
@@ -40,11 +48,13 @@ public class GUIApp extends GUI {
             return;
         }
         if (!GUIApp.isInt(durationStr)) {
-            JOptionPane.showConfirmDialog(null, "Please input Integer value in duration field!", "WARNING", JOptionPane.DEFAULT_OPTION);
+			JOptionPane.showConfirmDialog(null, "Please input Integer value in duration field!", "WARNING", JOptionPane.DEFAULT_OPTION);
+			this.txtDuration.setText("");
             return;
 		}
 		if (this.nodeMaps.containsKey(nodeName)) {
             JOptionPane.showConfirmDialog(null, "Node: \"" + nodeName + "\" is already exist!\n Try using other name", "WARNING", JOptionPane.DEFAULT_OPTION);
+			this.txtActivityName.setText("");
             return;
 		}
 		Node newNode = new Node(nodeName, Integer.parseInt(durationStr));
@@ -53,6 +63,7 @@ public class GUIApp extends GUI {
 		}
 		this.nodeMaps.put(nodeName, newNode);
 		this.nodeList.add(newNode);
+		this.resetInputFields();
 		this.updateTextRecord();
 	}
 
@@ -78,6 +89,7 @@ public class GUIApp extends GUI {
 
 		JButton undoButton = this.addButton("Undo", inputsRecord, "/CSE360TeamProject/Icons/icons8-undo-26.png", null, 6, 336, 123, 39);
 		JButton analyzeButton = this.addButton("Analyze", inputsRecord, "/CSE360TeamProject/Icons/icons8-checkmark-26.png", null, 270, 336, 117, 39);
+		analyzeButton.addActionListener(new kAnalyzeGraphAction(this));
 		
 		/*
 		 * InputPanel
@@ -89,7 +101,7 @@ public class GUIApp extends GUI {
 		this.addSideBarInputField(inputPanel, this.txtActivityName, "Activity Name", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", 6, 120, 132, 16);
 		this.addSideBarInputField(inputPanel, this.txtDuration, "Duration", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", 6, 176, 132, 16);
 		this.addSideBarInputField(inputPanel, this.txtDependency, "Dependency", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", 6, 232, 132, 16);
-		this.txtNetworkName.setText("Default Network");
+		this.txtNetworkName.setText("Network " + this.graphNumber);
 		this.txtNetworkName.setEditable(false);
 		
 		
@@ -141,6 +153,12 @@ public class GUIApp extends GUI {
             return false; 
         }
         // only got here if we didn't return false
-        return true;
-    }
+		return true;
+	}
+	
+	private void resetInputFields() {
+		this.txtActivityName.setText("");
+		this.txtDuration.setText("");
+		this.txtDependency.setText("");
+	}
 }

@@ -89,34 +89,121 @@ public class Tree {
         return true;
     }
 
+    public void treeConstructAux() {
+        constructAscendentList();
+        for (Node n: this.nodeDict.values()) {
+            this.rawData.add(n);
+        }
+    }
+
+    public void constructPertDiagram(Boolean isForwarding) {
+
+        ArrayList<Node> remainQueue = new ArrayList<Node>();
+        for (Node node: this.orderList) {
+            if (isForwarding) {
+                remainQueue.add(node);
+            } else {
+                remainQueue.add(0, node);
+            }
+        }
+        HashSet<String> finishedSet = new HashSet<String>();
+
+        while (remainQueue.size() != 0) {
+            Node tmpNode = remainQueue.get(0);
+            if (isForwarding) {
+                if (tmpNode.dependencies_key.size() == 0) {
+                    remainQueue.remove(0);
+                    tmpNode.earlyStart = 0;
+                    tmpNode.earlyFinish = tmpNode.duration;
+
+                    finishedSet.add(tmpNode.name);
+                } else {
+                    for (String key: tmpNode.dependencies_key) {
+                        if (!finishedSet.contains(key)) {
+                            remainQueue.remove(0);
+                            remainQueue.add(tmpNode);
+                            break;
+                        }
+                    }
+                    
+                    int tmpMax = -1;
+                    for (String key: tmpNode.dependencies_key) {
+                        if (nodeDict.get(key).earlyFinish > tmpMax) {
+                            tmpMax = nodeDict.get(key).earlyFinish;
+                        }
+                    }
+                    tmpNode.earlyStart = tmpMax;
+                    tmpNode.earlyFinish = tmpNode.earlyStart+tmpNode.duration;
+                    remainQueue.remove(0);
+                    finishedSet.add(tmpNode.name);
+                }
+            } else {
+                if (tmpNode.nextNodes_key.size() == 0) {
+                    remainQueue.remove(0);
+                    tmpNode.lateFinish = tmpNode.earlyFinish;
+                    tmpNode.lateStart = tmpNode.lateFinish-tmpNode.duration;
+
+                    finishedSet.add(tmpNode.name);
+                } else {
+                    for (String key: tmpNode.nextNodes_key) {
+                        if (!finishedSet.contains(key)) {
+                            remainQueue.remove(0);
+                            remainQueue.add(tmpNode);
+                            break;
+                        }
+                    }
+                    
+                    int tmpMin = Integer.MAX_VALUE;
+                    for (String key: tmpNode.nextNodes_key) {
+                        if (nodeDict.get(key).lateStart < tmpMin) {
+                            tmpMin = nodeDict.get(key).lateStart;
+                        }
+                    }
+                    tmpNode.lateFinish = tmpMin;
+                    tmpNode.lateStart  = tmpNode.lateFinish-tmpNode.duration;
+                    remainQueue.remove(0);
+                    finishedSet.add(tmpNode.name);
+                }
+            }
+        }
+    }
+
     public static void main(String [] args) {
         ArrayList<Node> testList = new ArrayList<Node>();
-        Node a = new Node("a", 1);
+        Node a = new Node("a", 5);
         Node b = new Node("b", 1);
-        Node c = new Node("c", 1);
-        Node d = new Node("d", 1);
-        Node e = new Node("e", 1);
-        Node f = new Node("f", 1);
+        Node c = new Node("c", 3);
+        Node d = new Node("d", 6);
+        Node e = new Node("e", 5);
+        Node f = new Node("f", 2);
+        Node g = new Node("g", 1);
+        Node h = new Node("h", 7);
 
-        a.dependencies_key.add("b");
-
-        b.dependencies_key.add("c");
         b.dependencies_key.add("a");
-        b.dependencies_key.add("d");
-
-        c.dependencies_key.add("e");
+        
+        c.dependencies_key.add("d");
+        c.dependencies_key.add("b");
 
         d.dependencies_key.add("a");
-        d.dependencies_key.add("e");
-        d.dependencies_key.add("f");
 
-        e.dependencies_key.add("a");
+        e.dependencies_key.add("d");
 
-        testList.add(a);
-        testList.add(b);
+        f.dependencies_key.add("b");
+
+        g.dependencies_key.add("h");
+        g.dependencies_key.add("e");
+        g.dependencies_key.add("c");
+        g.dependencies_key.add("f");
+
+        h.dependencies_key.add("d");
+
         testList.add(c);
-        testList.add(d);
+        testList.add(h);
         testList.add(e);
+        testList.add(b);
+        testList.add(a);
+        testList.add(g);
+        testList.add(d);
         testList.add(f);
 
         for (Node node: testList) {
@@ -126,17 +213,17 @@ public class Tree {
         System.out.printf("--------------------------------\n");
 
         Tree tree = new Tree(testList);
-        System.out.printf("tree contains cycle? %s\n", tree.containsCycle());
-        for (Node node: tree.rawData) {
-            System.out.printf("%s\t: %d, %s | dep: %s\n", node.name, node.duration, node.nextNodes_key, node.dependencies_key);
-        }
-
-        /*
-        System.out.printf("-----------Traversed------------\n");
+        tree.treeConstructAux();
         tree.traverse();
+
+        System.out.printf("tree contains cycle? %s\n", tree.containsCycle());
+
+        tree.constructPertDiagram(true);
+        tree.constructPertDiagram(false);
+
         for (Node node: tree.orderList) {
-            System.out.printf("%s\t:, completed_time: %d dep: %s\n", node.name, node.order, node.dependencies_key);
+            System.out.printf("%s\t: [%d, %d, %d | %d, %d]\n", node.name, node.earlyStart, node.duration, node.earlyFinish,
+            node.lateStart, node.lateFinish);
         }
-        */
     }
 }

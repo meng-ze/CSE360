@@ -18,6 +18,11 @@ public class Node {
     public Boolean traversed = false;
     public int order;
 
+    public int earlyStart = -1;
+    public int earlyFinish = -1;
+    public int lateStart = -1;
+    public int lateFinish = -1;
+
     public Node(String name, int duration) {
         this.name = name;
         this.duration = duration;

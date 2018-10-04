@@ -16,7 +16,7 @@ public class Node {
     public String name;
     public int duration;
     public Boolean traversed = false;
-    public int order;
+    public int order = 0;
 
     public int earlyStart = -1;
     public int earlyFinish = -1;

@@ -41,8 +41,8 @@ public class kAnalyzeGraphAction implements ActionListener {
                 this.app.graphNumber += 1;
                 
                 for (Node node: tree.orderList) {
-                    System.out.printf("%s\t: [%d, %d, %d | %d, %d]\n", node.name, node.earlyStart, node.duration, node.earlyFinish,
-                    node.lateStart, node.lateFinish);
+                    System.out.printf("%s\t: [%d, %d, %d | %d, %d | order: %d]\n", node.name, node.earlyStart, node.duration, node.earlyFinish,
+                    node.lateStart, node.lateFinish, node.order);
                 }
             }
         }

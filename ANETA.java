@@ -1,4 +1,7 @@
 //package CSE360TeamProject;
+import java.awt.geom.AffineTransform.*;
+import java.awt.geom.AffineTransform;
+
 
 import java.awt.*;
 import javax.swing.*;
@@ -92,7 +95,33 @@ public class ANETA extends GUIApp {
 		JTextArea textArea_PathsFound = new JTextArea();
 		textArea_PathsFound.setEditable(false);
 		textArea_PathsFound.setLineWrap(true);
-		scrollPane_PathsFound.setViewportView(textArea_PathsFound);
+
+		scrollPane_PathsFound.setViewportView(new JComponent() {
+            private final int ARR_SIZE = 4;
+
+            void drawArrow(Graphics g1, int x1, int y1, int x2, int y2) {
+                Graphics2D g = (Graphics2D) g1.create();
+
+                double dx = x2 - x1, dy = y2 - y1;
+                double angle = Math.atan2(dy, dx);
+                int len = (int) Math.sqrt(dx*dx + dy*dy);
+                AffineTransform at = AffineTransform.getTranslateInstance(x1, y1);
+                at.concatenate(AffineTransform.getRotateInstance(angle));
+                g.transform(at);
+
+                // Draw horizontal arrow starting in (0, 0)
+                g.drawLine(0, 0, len, 0);
+                g.fillPolygon(new int[] {len, len-ARR_SIZE, len-ARR_SIZE, len},
+                              new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
+            }
+
+            public void paintComponent(Graphics g) {
+                for (int x = 215; x < 300; x += 16)
+                    drawArrow(g, x, x, x, 150);
+                drawArrow(g, 30, 300, 300, 190);
+            }
+        });
+
 		
 		/*
 		 * RecordPanel: show network diagram record

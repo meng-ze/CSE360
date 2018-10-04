@@ -7,13 +7,13 @@ public class Tree {
 
     public HashMap<String, Node> endPoint = new HashMap<String, Node>();
 
-    private int step = 0;
-
     public Tree(ArrayList<Node> nodes) {
         for (Node n: nodes) {
             Node tmpNode = new Node(n.name, n.duration);
             for (String key: n.dependencies_key) {
-                tmpNode.dependencies_key.add(key);
+                if (!key.isEmpty()) {
+                    tmpNode.dependencies_key.add(key);
+                }
             }
             nodeDict.put(tmpNode.name, tmpNode);
         }
@@ -78,8 +78,6 @@ public class Tree {
                     }
                 }
             }
-            this.step += 1;
-            node.order = this.step;
             this.orderList.add(0, node);
         }
     }
@@ -94,6 +92,7 @@ public class Tree {
                 } else if (dep_key.isEmpty()) {
 
                 } else {
+                    System.out.printf("Cannot find key: %s\n", dep_key);
                     return false;
                 }
             }
@@ -146,16 +145,21 @@ public class Tree {
                     }
                     tmpNode = remainQueue.get(0);
                     
+                    int orderMax = -1;
                     int tmpMax = -1;
                     for (String key: tmpNode.dependencies_key) {
                         if (!key.isEmpty()) {
                             if (nodeDict.get(key).earlyFinish > tmpMax) {
                                 tmpMax = nodeDict.get(key).earlyFinish;
                             }
+                            if (nodeDict.get(key).order > orderMax) {
+                                orderMax = nodeDict.get(key).order;
+                            }
                         } else {
                             tmpMax = 0;
                         }
                     }
+                    tmpNode.order = orderMax + 1;
                     tmpNode.earlyStart = tmpMax;
                     tmpNode.earlyFinish = tmpNode.earlyStart+tmpNode.duration;
                     remainQueue.remove(0);

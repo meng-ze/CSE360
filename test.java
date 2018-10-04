@@ -38,39 +38,6 @@ public class test {
         t.setSize(400, 400);
         t.setVisible(true);
 
-        addNodeIntoNodeList("Hi", new ArrayList<String>(), "0");
-        addNodeIntoNodeList("Hi", new ArrayList<String>(), "1");
-    }
-
-	public static ArrayList<Node> nodeList = new ArrayList<Node>();
-    private static HashMap<String, Node> nodeMaps = new HashMap<String, Node>();
-    public static void addNodeIntoNodeList(String nodeName, ArrayList<String> dependencies, String durationStr) {
-        if (nodeName == "") {
-            JOptionPane.showConfirmDialog(null, "Please input node name!", "WARNING", JOptionPane.DEFAULT_OPTION);
-            return;
-        }
-        if (!isInt(durationStr)) {
-            JOptionPane.showConfirmDialog(null, "Please input Integer value in duration field!", "WARNING", JOptionPane.DEFAULT_OPTION);
-            return;
-		}
-		if (test.nodeMaps.containsKey(nodeName)) {
-            JOptionPane.showConfirmDialog(null, "Node: \"" + nodeName + "\" is already exist!\n Try using other name", "WARNING", JOptionPane.DEFAULT_OPTION);
-            return;
-		}
-		Node newNode = new Node(nodeName, Integer.parseInt(durationStr));
-		test.nodeMaps.put(nodeName, newNode);
-    }
-
-    public static Boolean isInt(String s) {
-        try { 
-            Integer.parseInt(s); 
-        } catch (NullPointerException nulExcept) {
-            return false;
-        } catch (NumberFormatException formatExcept) { 
-            return false; 
-        }
-        // only got here if we didn't return false
-        return true;
     }
 }
 

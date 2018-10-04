@@ -26,6 +26,11 @@ public class GUIApp extends GUI {
 		this.txtNetworkName.setText("Network " + this.graphNumber);
 	}
 
+	public void updateRecordsLabel() {
+		System.out.printf("Path Found: %s\n", historyNetworks.size());
+		this.numberRecord.setText(""+historyNetworks.size());
+	}
+
 	public void updateTextRecord() {
 		this.textArea_inputRecord.setEditable(true);
 		this.textArea_inputRecord.setText(" ");

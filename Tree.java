@@ -11,7 +11,11 @@ public class Tree {
 
     public Tree(ArrayList<Node> nodes) {
         for (Node n: nodes) {
-            nodeDict.put(n.name, n);
+            Node tmpNode = new Node(n.name, n.duration);
+            for (String key: n.dependencies_key) {
+                tmpNode.dependencies_key.add(key);
+            }
+            nodeDict.put(tmpNode.name, tmpNode);
         }
     }
 

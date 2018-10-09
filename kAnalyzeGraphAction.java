@@ -44,6 +44,9 @@ public class kAnalyzeGraphAction implements ActionListener {
                     System.out.printf("%s\t: [%d, %d, %d | %d, %d | order: %d]\n", node.name, node.earlyStart, node.duration, node.earlyFinish,
                     node.lateStart, node.lateFinish, node.order);
                 }
+                tree.generateNodeLocation();
+                this.app.drawDiagram(tree);
+                this.app.navigateToPathsFoundPanel();
             }
         }
 

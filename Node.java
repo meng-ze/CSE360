@@ -9,9 +9,9 @@ public class Node {
     public ArrayList<Node> nextNodes = new ArrayList<Node>();
     public ArrayList<String> nextNodes_key = new ArrayList<String>();
 
-    private Point2D.Float anchorPointEntry = new Point2D.Float(0.0f, 0.0f);
-    private Point2D.Float anchorPointExit = new Point2D.Float(0.0f, 0.0f);
-    private Rectangle boundingBox = new Rectangle(0, 0, 1, 1);
+    public Point2D.Float anchorPointEntry = new Point2D.Float(0.0f, 0.0f);
+    public Point2D.Float anchorPointExit = new Point2D.Float(0.0f, 0.0f);
+    public Rectangle boundingBox = new Rectangle(0, 0, 60, 20);
 
     public String name;
     public int duration;
@@ -29,10 +29,14 @@ public class Node {
     }
     
     public Point2D getEntryPoint() {
+        this.anchorPointEntry.x = this.boundingBox.x;
+        this.anchorPointEntry.y = this.boundingBox.y+(this.boundingBox.height/2);
         return this.anchorPointEntry;
     }
 
     public Point2D getExitPoint() {
+        this.anchorPointExit.x = this.boundingBox.x+this.boundingBox.width;
+        this.anchorPointExit.y = this.boundingBox.y+(this.boundingBox.height/2);
         return this.anchorPointExit;
     }
 

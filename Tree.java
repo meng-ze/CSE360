@@ -196,6 +196,37 @@ public class Tree {
         }
     }
 
+    public void generateNodeLocation() {
+        HashMap<Integer, ArrayList<Node>> orderMap = new HashMap<Integer, ArrayList<Node>>();
+        for (Node node: orderList) {
+            node.boundingBox.x = (node.order+1)*100;
+            if (orderMap.containsKey(node.order)) {
+                orderMap.get(node.order).add(node);
+            } else {
+                ArrayList<Node> tmpList = new ArrayList<Node>();
+                tmpList.add(node);
+                orderMap.put(node.order, tmpList);
+            }
+        }
+
+        int basedSpace = 40;
+        int maxheight = 300;
+
+        for (int layerNumber: orderMap.keySet()) {
+            int boxheight = orderMap.get(layerNumber).get(0).boundingBox.height;
+            int numberOfNodeInLayer = orderMap.get(layerNumber).size();
+            int totalHeight = boxheight*numberOfNodeInLayer+ basedSpace*(numberOfNodeInLayer-1);
+            int startPoint = (maxheight-totalHeight)/2;
+
+            int i = 0;
+            for (Node node: orderMap.get(layerNumber)) {
+                node.boundingBox.y = startPoint + i*(boxheight+basedSpace);
+                i++;
+            }
+        }
+    }
+
+
     public Boolean isNotConnected() {
         System.out.printf("End point count: %s\n", this.endPoint.size());
         if (this.endPoint.keySet().size() == 1) {

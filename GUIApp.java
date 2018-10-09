@@ -3,6 +3,8 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.event.*;
 import java.util.*;
+import java.awt.geom.AffineTransform.*;
+import java.awt.geom.AffineTransform;
 
 public class GUIApp extends GUI {
 	private JLabel numberRecord;
@@ -13,6 +15,7 @@ public class GUIApp extends GUI {
 	protected JTextField txtDuration = new JTextField();
 	protected JTextField txtDependency = new JTextField();
 	protected JTextArea textArea_inputRecord;
+	protected JScrollPane scrollPane_PathsFound = new JScrollPane();
 
 	public HashMap<String, Tree> historyNetworks = new HashMap<String, Tree>();
 
@@ -24,6 +27,54 @@ public class GUIApp extends GUI {
 		this.nodeMaps.clear();
 		this.updateTextRecord();
 		this.txtNetworkName.setText("Network " + this.graphNumber);
+	}
+
+    public void drawDiagram(Tree tree) {
+		scrollPane_PathsFound.setViewportView(new JComponent() {
+
+            void drawRec(Graphics overrideGraphics, Node node) {
+				int boxWidth = node.boundingBox.width;
+				int boxHeight = node.boundingBox.height;
+
+				System.out.printf("Added %s into diagram\n", node.name);
+				if (node.lateFinish == node.earlyFinish) {
+					overrideGraphics.setColor(Color.red);
+				} else {
+					overrideGraphics.setColor(Color.blue);
+				}
+				overrideGraphics.fillRect(node.boundingBox.x, node.boundingBox.y, boxWidth, boxHeight);
+
+				int currentFontSize = overrideGraphics.getFont().getSize();
+				int stringLength = currentFontSize * node.name.length();
+		
+				overrideGraphics.setColor(Color.white);
+				overrideGraphics.drawString(node.name, node.boundingBox.x+boxWidth/2-stringLength/2,
+				 node.boundingBox.y+boxHeight/2+currentFontSize/2);
+		
+				overrideGraphics.setColor(Color.black);
+				overrideGraphics.drawString(""+node.earlyStart, node.boundingBox.x, node.boundingBox.y-3);
+				overrideGraphics.setColor(Color.black);
+				overrideGraphics.drawString(""+node.earlyFinish, node.boundingBox.x+boxWidth-stringLength, node.boundingBox.y-3);
+		
+				overrideGraphics.setColor(Color.black);
+				overrideGraphics.drawString(""+node.lateStart, node.boundingBox.x, node.boundingBox.y+boxHeight+currentFontSize);
+				overrideGraphics.setColor(Color.black);
+				overrideGraphics.drawString(""+node.lateFinish, node.boundingBox.x+boxWidth-stringLength, node.boundingBox.y+boxHeight+currentFontSize);
+			}
+
+            public void paintComponent(Graphics g) {
+				for (Node node: tree.orderList) {
+					drawRec(g, node);
+				}
+            }
+        });
+    }
+
+	public void navigateToPathsFoundPanel() {
+		System.out.printf("Fake mouse click\n");
+		MouseEvent tmpMouseEvent = new MouseEvent(this.txtPathsFound, this.txtPathsFound.CENTER , 0, 0, 0, 0, 1, false);
+		MouseListener ms = this.txtPathsFound.getMouseListeners()[this.txtPathsFound.getMouseListeners().length-1];
+		ms.mouseClicked(tmpMouseEvent);
 	}
 
 	public void updateRecordsLabel() {

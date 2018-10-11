@@ -81,7 +81,7 @@ public class GUI extends JFrame {
 	}
 
 	protected JTextField addTextField(String title, AbstractBorder border, JPanel parentPanel, int x, int y, int width, int height,
-	GUI guiApp, JPanel targetPanel, Font font, Boolean isEditable, Color foregroundColor, Color backgroundColor) {
+	GUIApp guiApp, JPanel targetPanel, Font font, Boolean isEditable, Color foregroundColor, Color backgroundColor) {
 		JTextField tmpTextField = new JTextField();
 		tmpTextField.setText(title);
 		tmpTextField.setBounds(x, y, width, height);
@@ -103,7 +103,7 @@ public class GUI extends JFrame {
 		return tmpTextField;
 	}
 	protected JTextField addTextField(String title, AbstractBorder border, JPanel parentPanel, int x, int y, int width, int height,
-	GUI guiApp, JPanel targetPanel, Font font, Boolean isEditable, Boolean extraCommand, Color foregroundColor, Color backgroundColor) {
+	GUIApp guiApp, JPanel targetPanel, Font font, Boolean isEditable, Boolean extraCommand, Color foregroundColor, Color backgroundColor) {
 		JTextField tmpTextField = new JTextField();
 		tmpTextField.setText(title);
 		tmpTextField.setBounds(x, y, width, height);

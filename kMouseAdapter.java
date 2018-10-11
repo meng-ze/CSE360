@@ -4,18 +4,18 @@ import javax.swing.border.*;
 import java.awt.event.*;
 
 public class kMouseAdapter extends MouseAdapter {
-    private GUI targetApp;
+    private GUIApp targetApp;
     private JPanel targetPanel;
     private JTextField targetTextfield;
     private Boolean extraConfirmation = false;
 
-    public kMouseAdapter(GUI targetApp, JPanel target, JTextField targetTextfield) {
+    public kMouseAdapter(GUIApp targetApp, JPanel target, JTextField targetTextfield) {
         this.targetApp = targetApp;
         this.targetPanel = target;
         this.targetTextfield = targetTextfield;
     }
 
-    public kMouseAdapter(GUI targetApp, JPanel target, JTextField targetTextfield, Boolean confirmation) {
+    public kMouseAdapter(GUIApp targetApp, JPanel target, JTextField targetTextfield, Boolean confirmation) {
         this.targetApp = targetApp;
         this.targetPanel = target;
         this.targetTextfield = targetTextfield;
@@ -25,9 +25,14 @@ public class kMouseAdapter extends MouseAdapter {
     @Override
     public void mouseClicked(MouseEvent e) {
         if (this.extraConfirmation) {
-            JOptionPane.showConfirmDialog(null, 
-            "Are you sure to \"RESET\" previous result?\nAll content will be missing.", "WARNING", 
-            JOptionPane.YES_NO_CANCEL_OPTION);
+            int result = JOptionPane.showConfirmDialog(null, "Are you sure to \"RESET\" previous result?\nAll content will be missing.", "WARNING", JOptionPane.YES_NO_CANCEL_OPTION);
+            if (result == JOptionPane.YES_OPTION) {
+                this.targetApp.historyNetworks.clear();
+                this.targetApp.updateRecordsLabel();
+                this.targetApp.graphNumber = 1;
+                this.targetApp.resetAllNodes();
+                this.targetApp.scrollPane_PathsFound.setViewportView(null);
+            }
         } else {
             this.targetApp.createPanel.setVisible(false);
             this.targetApp.pathsFoundPanel.setVisible(false);

@@ -20,7 +20,7 @@ public class GUIApp extends GUI {
 	public HashMap<String, Tree> historyNetworks = new HashMap<String, Tree>();
 
 	public ArrayList<Node> nodeList = new ArrayList<Node>();
-	private HashMap<String, Node> nodeMaps = new HashMap<String, Node>();
+	public HashMap<String, Node> nodeMaps = new HashMap<String, Node>();
 
 	public void resetAllNodes() {
 		this.nodeList.clear();
@@ -31,7 +31,6 @@ public class GUIApp extends GUI {
 
     public void drawDiagram(Tree tree) {
 		scrollPane_PathsFound.setViewportView(new JComponent() {
-
 			void drawArrow(Graphics g, Node node1, Node node2) {
 				Graphics2D overrideGraphics = (Graphics2D) g.create();
 
@@ -168,10 +167,11 @@ public class GUIApp extends GUI {
 		scrollPane_inputRecord.setViewportView(textArea_inputRecord);
 
 		JButton cleanButton = this.addButton("Clean", inputsRecord, "/CSE360TeamProject/Icons/icons8-disposal-32-2.png", null, 141, 336, 117, 39); 
-		cleanButton.addActionListener(new kWarningPopup("Do you want to clean the entire network diagram?"));
+		cleanButton.addActionListener(new kCleanPopup("Do you want to clean the entire network diagram?", this));
 
 		JButton undoButton = this.addButton("Undo", inputsRecord, "/CSE360TeamProject/Icons/icons8-undo-26.png", null, 6, 336, 123, 39);
-		JButton analyzeButton = this.addButton("Analyze", inputsRecord, "/CSE360TeamProject/Icons/icons8-checkmark-26.png", null, 270, 336, 117, 39);
+		undoButton.addActionListener(new kUndoAction(this));
+		JButton analyzeButton = this.addButton("Process", inputsRecord, "/CSE360TeamProject/Icons/icons8-checkmark-26.png", null, 270, 336, 117, 39);
 		analyzeButton.addActionListener(new kAnalyzeGraphAction(this));
 		
 		/*

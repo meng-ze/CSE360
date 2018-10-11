@@ -2,7 +2,6 @@
 import java.awt.geom.AffineTransform.*;
 import java.awt.geom.AffineTransform;
 
-
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
@@ -90,13 +89,6 @@ public class ANETA extends GUIApp {
 		
 		scrollPane_PathsFound.setBounds(21, 70, 987, 298);
 		this.pathsFoundPanel.add(scrollPane_PathsFound);
-		
-		JTextArea textArea_PathsFound = new JTextArea();
-		textArea_PathsFound.setEditable(false);
-		textArea_PathsFound.setLineWrap(true);
-
-		//scrollPane_PathsFound.setViewportView();
-
 		
 		/*
 		 * RecordPanel: show network diagram record

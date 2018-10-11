@@ -45,7 +45,7 @@ public class kAnalyzeGraphAction implements ActionListener {
                     node.lateStart, node.lateFinish, node.order);
                 }
                 tree.generateNodeLocation();
-                this.app.drawDiagram(tree);
+                kPathDrawer.drawDiagram(tree, this.app);
                 this.app.navigateToPathsFoundPanel();
             }
         }

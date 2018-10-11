@@ -5,6 +5,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.table.*;
 import javafx.scene.layout.Border;
 
 import java.awt.event.*;
@@ -94,7 +95,7 @@ public class ANETA extends GUIApp {
 		 * RecordPanel: show network diagram record
 		 * 
 		 * To do: add Jcheckbox to textArea_networkRecord to show record after user clicks "Process" Button
-		 * To do: add listener to beleteButton to perform "Delete" action
+		 * To do: add listener to deleteButton to perform "Delete" action
 		 */
 		//JPanel RecordPanel = new JPanel();
 		this.recordPanel.setBackground(new Color(255, 255, 255));
@@ -111,13 +112,23 @@ public class ANETA extends GUIApp {
 		scrollPane_Record.setBounds(6, 70, 1014, 253);
 		this.recordPanel.add(scrollPane_Record);
 		
-		JTextArea textArea_networkRecord = new JTextArea();
-		scrollPane_Record.setViewportView(textArea_networkRecord);
+		//JTextArea textArea_networkRecord = new JTextArea();
+		this.model = new DefaultTableModel() {
+			public boolean isCellEditable(int row, int col) {
+				return false;
+			}
+		};
+        model.addColumn("Network Name");
+        model.addColumn("Activity Count");
+		this.recordTable = new JTable(model);
+		this.recordTable.addMouseListener(new kDoubleClickTableview(this));
+		scrollPane_Record.setViewportView(recordTable);
 		
-		JButton beleteButton = new JButton("Delete");
-		beleteButton.setIcon(new ImageIcon(ANETA.class.getResource("/CSE360TeamProject/Icons/icons8-trash-32.png")));
-		beleteButton.setBounds(465, 345, 117, 42);
-		this.recordPanel.add(beleteButton);
+		JButton deleteButton = new JButton("Delete");
+		deleteButton.setIcon(new ImageIcon(ANETA.class.getResource("/CSE360TeamProject/Icons/icons8-trash-32.png")));
+		deleteButton.setBounds(465, 345, 117, 42);
+		this.recordPanel.add(deleteButton);
+		deleteButton.addActionListener(new kDeleteAction(this));
 		
 		/*
 		 * HelpPanel: show some tips about how to use this application

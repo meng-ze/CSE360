@@ -3,6 +3,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.event.*;
 import java.util.*;
+import javax.swing.table.*;
 import java.awt.geom.AffineTransform.*;
 import java.awt.geom.AffineTransform;
 
@@ -21,6 +22,8 @@ public class GUIApp extends GUI {
 
 	public ArrayList<Node> nodeList = new ArrayList<Node>();
 	public HashMap<String, Node> nodeMaps = new HashMap<String, Node>();
+	protected DefaultTableModel model;
+	protected JTable recordTable;
 
 	public void resetAllNodes() {
 		this.nodeList.clear();

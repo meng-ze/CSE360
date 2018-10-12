@@ -32,6 +32,7 @@ public class kMouseAdapter extends MouseAdapter {
                 this.targetApp.graphNumber = 1;
                 this.targetApp.resetAllNodes();
                 this.targetApp.scrollPane_PathsFound.setViewportView(null);
+                this.targetApp.model.setRowCount(0);
             }
         } else {
             this.targetApp.createPanel.setVisible(false);

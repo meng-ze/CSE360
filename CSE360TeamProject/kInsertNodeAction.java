@@ -10,7 +10,7 @@ public class kInsertNodeAction implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String networkName   = app.txtNetworkName.getText();
-        String activityName  = app.txtActivityName.getText();
+        String activityName  = app.txtActivityName.getText().replaceAll("\\s","");
         String dependencyStr = app.txtDependency.getText();
         String durationStr   = app.txtDuration.getText();
 

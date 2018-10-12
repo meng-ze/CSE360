@@ -158,17 +158,31 @@ public class ANETA extends GUIApp {
 		
 		JPanel tipsPanel = new JPanel();
 		tipsPanel.setBackground(new Color(255, 255, 255));
-		tipsPanel.setBounds(17, 145, 592, 231);
+		tipsPanel.setBounds(17, 115, 1092, 531);
 		this.helpPanel.add(tipsPanel);
 		tipsPanel.setLayout(null);
 		
-		addTextField("How to Create a new Network?", new EmptyBorder(0, 0, 0, 0), tipsPanel, 45, 20, 369, 26);
-		addTextField("Where Can I Find the Paths in Created Network?", new EmptyBorder(0, 0, 0, 0), tipsPanel, 45, 58, 323, 26);
-		addTextField("What will happen if I click \"Restart\"?", new EmptyBorder(0, 0, 0, 0), tipsPanel, 45, 96, 283, 26);
+		JTextField helpOption1 = this.addTextField("How to Create a new Network?", new EmptyBorder(0, 0, 0, 0), tipsPanel, 				   45, 10, 369, 26);
+		JTextField helpAnswer1 = this.addTextField("Press \'Create Network\' -> Enter activity name and duration -> Click \'Enter\'", new EmptyBorder(0, 0, 0, 0), tipsPanel, 55, 40, 669, 26);
+		JTextField helpOption2 = this.addTextField("Where Can I Find the Paths in Created Network?", new EmptyBorder(0, 0, 0, 0), tipsPanel, 45, 76, 323, 26);
+		JTextField helpAnswer2 = this.addTextField("Press \'Record\' -> Click one history name -> Double click", new EmptyBorder(0, 0, 0, 0), tipsPanel, 55, 106, 669, 26);
+		JTextField helpOption3 = this.addTextField("What will happen if I click \"Restart\"?", new EmptyBorder(0, 0, 0, 0), tipsPanel, 	   45, 142, 283, 26);
+		JTextField helpAnswer3 = this.addTextField("Pressing \'Restart\' button at the left panel will triger erasing process which will remove all history data.", new EmptyBorder(0, 0, 0, 0), tipsPanel, 55, 172, 1269, 26);
+		JTextField helpOption4 = this.addTextField("How do I input the 'dependencies' field in 'Create network' panel?", new EmptyBorder(0, 0, 0, 0), tipsPanel, 	   45, 208, 983, 26);
+		JTextField helpAnswer4 = this.addTextField("Dependencies is separated by single comma. For example if A is depending on B and C, then we have to type 'B, C' (without single quote) in the field.", new EmptyBorder(0, 0, 0, 0), tipsPanel, 55, 238, 1069, 26);
+		helpOption1.setEditable(false);
+		helpAnswer1.setEditable(false);
+		helpOption2.setEditable(false);
+		helpAnswer2.setEditable(false);
+		helpOption3.setEditable(false);
+		helpAnswer3.setEditable(false);
+		helpOption4.setEditable(false);
+		helpAnswer4.setEditable(false);
 		
-		this.addLabel("", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", null, tipsPanel, null, null, null, 6, 20, 61, 26);
-		this.addLabel("", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", null, tipsPanel, null, null, null, 6, 63, 61, 21);
-		this.addLabel("", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", null, tipsPanel, null, null, null, 6, 96, 61, 26);
+		this.addLabel("", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", null, tipsPanel, null, null, null, 6, 10, 61, 26);
+		this.addLabel("", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", null, tipsPanel, null, null, null, 6, 76, 61, 26);
+		this.addLabel("", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", null, tipsPanel, null, null, null, 6, 142, 61, 26);
+		this.addLabel("", "/CSE360TeamProject/Icons/icons8-chevron-right-26.png", null, tipsPanel, null, null, null, 6, 208, 61, 26);
 		
 		/*
 		 * this.aboutPanel: contains two panels (ourApplication Panel and ourMembers Panel)
@@ -193,7 +207,7 @@ public class ANETA extends GUIApp {
 		ourApplication.setLayout(null);
 		
 		JEditorPane About_ourApplication = new JEditorPane();
-		About_ourApplication.setText("\n\nis a network analyzer which provide functionality to analyze network diagram. \n\n\nThis project is aim to facilitate the procedure for “ANY” user who is required to create network based on their requirement dependency.");
+		About_ourApplication.setText("\n\nANETA (A Network diagram Analyzer) is a network analyzer which provide functionality to \nanalyze network diagram. \n\n\nThis project is aim to facilitate the procedure for “ANY” user who is required to create network based on their requirement dependency.");
 		About_ourApplication.setBounds(6, 66, 602, 200);
 		ourApplication.add(About_ourApplication);
 		
@@ -204,6 +218,11 @@ public class ANETA extends GUIApp {
 		ourMembers.setBackground(new Color(255, 255, 255));
 		ourMembers.setBorder(new LineBorder(new Color(0, 102, 102), 2));
 		layeredPane_About.add(ourMembers);
+
+		JEditorPane About_teamMembers = new JEditorPane();
+		About_teamMembers.setText("\nCurrent team members: (Sort by last name)\n\nMeng-Ze Chen\nWilliam Kostecki\nLingzhi Zhu\n\nWithdrawn team member:\n\nYueya Ou");
+		About_teamMembers.setBounds(6, 66, 602, 200);
+		ourMembers.add(About_teamMembers);
 		
 		JLabel lblAbout = new JLabel("About");
 		lblAbout.setFont(new Font("Lucida Grande", Font.PLAIN, 30));

@@ -55,6 +55,22 @@ public class kAnalyzeGraphAction implements ActionListener {
         this.app.updateRecordsLabel();
         this.app.resetAllNodes();
 
+        this.app.textArea_inputRecord.setEditable(true);
+		String tmpString = "";
+		for (Path p: tree.descendingOrderPaths) {
+			for (Node node: p.path) {
+				tmpString += node.name;
+				if (node.nextNodes.size() != 0) {
+					tmpString += " -> ";
+				}
+			}	
+			tmpString += ": ";
+			tmpString += "" + p.pathLength + "\n";
+		}
+		System.out.printf("Set text: %s\n", tmpString);
+		this.app.textArea_inputRecord.setText(tmpString);
+		this.app.textArea_inputRecord.setEditable(false);
+
         for (String key: this.app.historyNetworks.keySet()) {
             System.out.printf("%s: %s\n", key, this.app.historyNetworks.get(key).rawData);
         }

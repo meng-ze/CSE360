@@ -49,7 +49,7 @@ public class kPathDrawer {
 		
 				overrideGraphics.setColor(Color.white);
 				overrideGraphics.drawString(node.name, node.boundingBox.x+boxWidth/2-stringLength/2,
-				 node.boundingBox.y+boxHeight/2+currentFontSize/2);
+				node.boundingBox.y+boxHeight/2+currentFontSize/2);
 		
 				overrideGraphics.setColor(Color.black);
 				overrideGraphics.drawString(""+node.earlyStart, node.boundingBox.x, node.boundingBox.y-3);

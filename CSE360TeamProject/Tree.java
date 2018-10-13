@@ -6,6 +6,7 @@ public class Tree {
     public ArrayList<Node> rawData = new ArrayList<Node>();
 
     public HashMap<String, Node> endPoint = new HashMap<String, Node>();
+    public ArrayList<Path> descendingOrderPaths = new ArrayList<Path>();
 
     public Tree(ArrayList<Node> nodes) {
         for (Node n: nodes) {
@@ -196,10 +197,46 @@ public class Tree {
         }
     }
 
+    public void findAllPossiblePaths() {
+        dfs_find_path(orderList.get(0), new Path(0));
+        for (Path path: this.descendingOrderPaths) {
+            for (Node n: path.path) {
+                System.out.printf("%s ", n.name);
+            }
+            System.out.printf("%d \n", path.pathLength);
+        }
+    }
+
+    private void dfs_find_path(Node node, Path previousPath) {
+        Path cpyPath = new Path(0);
+        if (previousPath.pathLength != 0) {
+            cpyPath.pathLength = previousPath.pathLength;
+        }
+        for (Node n: previousPath.path) {
+            cpyPath.path.add(n);
+        }
+        cpyPath.path.add(node);
+        cpyPath.pathLength += node.duration;
+
+        if (node.name != orderList.get(orderList.size()-1).name) {
+            for (Node n: node.nextNodes) {
+                dfs_find_path(n, cpyPath);
+            }
+        } else {
+            int i = 0;
+            for (i=0; i<descendingOrderPaths.size(); i++) {
+                if (descendingOrderPaths.get(i).pathLength < cpyPath.pathLength) {
+                    break;
+                }
+            }
+            descendingOrderPaths.add(i, cpyPath);
+        }
+    }
+
     public void generateNodeLocation() {
         HashMap<Integer, ArrayList<Node>> orderMap = new HashMap<Integer, ArrayList<Node>>();
         for (Node node: orderList) {
-            node.boundingBox.x = (node.order+1)*100;
+            node.boundingBox.x = (node.order+1)*(node.boundingBox.width+30);
             if (orderMap.containsKey(node.order)) {
                 orderMap.get(node.order).add(node);
             } else {

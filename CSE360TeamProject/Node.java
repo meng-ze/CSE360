@@ -11,7 +11,7 @@ public class Node {
 
     public Point2D.Float anchorPointEntry = new Point2D.Float(0.0f, 0.0f);
     public Point2D.Float anchorPointExit = new Point2D.Float(0.0f, 0.0f);
-    public Rectangle boundingBox = new Rectangle(0, 0, 60, 20);
+    public Rectangle boundingBox = new Rectangle(0, 0, 40, 20);
 
     public String name;
     public int duration;

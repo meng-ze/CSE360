@@ -7,7 +7,30 @@ import java.awt.geom.AffineTransform.*;
 import java.awt.geom.AffineTransform;
 
 public class kPathDrawer {
+	private static void printAllPossiblePaths(Tree tree, GUIApp app) {
+		System.out.printf("print all paths\n");
+
+        app.textArea_inputRecord.setEditable(true);
+        String tmpString = "";
+        System.out.printf("%d\n", tree.descendingOrderPaths.size());
+		for (Path p: tree.descendingOrderPaths) {
+			for (Node node: p.path) {
+				tmpString += node.name;
+				if (node.nextNodes.size() != 0) {
+					tmpString += " -> ";
+				}
+			}	
+			tmpString += ": ";
+			tmpString += "" + p.pathLength + "\n";
+		}
+		System.out.printf("Set text: %s\n", tmpString);
+		app.textArea_inputRecord.setText(tmpString);
+		app.textArea_inputRecord.setEditable(false);
+
+	}
     public static void drawDiagram(Tree tree, GUIApp app) {
+		System.out.printf("DrawDiagram\n");
+		printAllPossiblePaths(tree, app);
 		app.scrollPane_PathsFound.setViewportView(new JComponent() {
 			void drawArrow(Graphics g, Node node1, Node node2) {
 				Graphics2D overrideGraphics = (Graphics2D) g.create();

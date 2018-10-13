@@ -26,11 +26,13 @@ public class kAnalyzeGraphAction implements ActionListener {
             this.app.resetAllNodes();
             return;
         }
+        this.app.resetAllNodes();
 
         if (tree.containsCycle()) {
             JOptionPane.showConfirmDialog(null, "Seems like your diagram contains at least one dependency cycle.\nPlease check your dependency.", "WARNING", JOptionPane.DEFAULT_OPTION);
         } else {
             tree.traverse();
+            tree.findAllPossiblePaths();
 
             if (tree.isNotConnected()) {
                 JOptionPane.showConfirmDialog(null, "Seems like part of your diagram is not connected.\nPlease check your dependency.", "WARNING", JOptionPane.DEFAULT_OPTION);
@@ -53,23 +55,6 @@ public class kAnalyzeGraphAction implements ActionListener {
         }
 
         this.app.updateRecordsLabel();
-        this.app.resetAllNodes();
-
-        this.app.textArea_inputRecord.setEditable(true);
-		String tmpString = "";
-		for (Path p: tree.descendingOrderPaths) {
-			for (Node node: p.path) {
-				tmpString += node.name;
-				if (node.nextNodes.size() != 0) {
-					tmpString += " -> ";
-				}
-			}	
-			tmpString += ": ";
-			tmpString += "" + p.pathLength + "\n";
-		}
-		System.out.printf("Set text: %s\n", tmpString);
-		this.app.textArea_inputRecord.setText(tmpString);
-		this.app.textArea_inputRecord.setEditable(false);
 
         for (String key: this.app.historyNetworks.keySet()) {
             System.out.printf("%s: %s\n", key, this.app.historyNetworks.get(key).rawData);

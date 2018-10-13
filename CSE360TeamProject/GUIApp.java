@@ -26,6 +26,7 @@ public class GUIApp extends GUI {
 	protected JTable recordTable;
 
 	public void resetAllNodes() {
+		System.out.printf("Reset All Nodes\n");
 		this.nodeList.clear();
 		this.nodeMaps.clear();
 		this.updateTextRecord();
@@ -46,7 +47,7 @@ public class GUIApp extends GUI {
 
 	public void updateTextRecord() {
 		this.textArea_inputRecord.setEditable(true);
-		this.textArea_inputRecord.setText(" ");
+		this.textArea_inputRecord.setText("");
 		String tmpString = "";
 		for (Node node: this.nodeList) {
 			tmpString += "Activity name:\t";

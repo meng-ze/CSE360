@@ -1,3 +1,4 @@
+import java.io.*;
 import javax.swing.*;
 import java.awt.event.*;
 
@@ -12,12 +13,34 @@ public class kSaveFileAction implements ActionListener {
         String dateTimeStr = tree.dateTime;
         String nodesStr = kPathDrawer.getSortedActivity(tree);
         String pathStr = kPathDrawer.getAllPossiblePathsStr(tree);
-        System.out.printf("--Network Report--\n");
-        System.out.printf("Name: %s\n", networkName);
-        System.out.printf("Create Time: %s\n", dateTimeStr);
-        System.out.printf("\n");
-        System.out.printf("--Activities--\n%s", nodesStr);
-        System.out.printf("\n");
-        System.out.printf("--Paths--\n%s", pathStr);
+        String outputStr = "";
+        outputStr += "--Network Report--\n";
+        outputStr += "Name: ";
+        outputStr += networkName;
+        outputStr += "\n";
+        outputStr += "Create Time: ";
+        outputStr += dateTimeStr;
+        outputStr += "\n";
+        outputStr += "\n";
+        outputStr += "--Activities--";
+        outputStr += "\n";
+        outputStr += nodesStr;
+        outputStr += "\n";
+        outputStr += "--Paths--";
+        outputStr += "\n";
+        outputStr += pathStr;
+        outputStr += "\n";
+        System.out.printf("%s", outputStr);
+        JFileChooser fileChooser = new JFileChooser();
+        if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            try {
+                BufferedWriter fileHandler = new BufferedWriter(new FileWriter(file));
+                fileHandler.write(outputStr);
+                fileHandler.close();
+            } catch (IOException exc) {
+                exc.printStackTrace();
+            }
+        }
     }
 }

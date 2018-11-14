@@ -28,6 +28,19 @@ public class kPathDrawer {
 		app.textArea_inputRecord.setEditable(false);
 
 	}
+	public static String getSortedActivity(Tree tree) {
+		TreeMap<String, Node> treeMap = new TreeMap<String, Node>();
+		treeMap.putAll(tree.nodeDict);
+		String returnStr = "";
+		for (Map.Entry<String, Node> entry : treeMap.entrySet()) {
+			String nodeInfo = "";
+			nodeInfo += entry.getKey();
+			nodeInfo += ": ";
+			nodeInfo += entry.getValue().duration;
+			returnStr += nodeInfo + "\n";
+		}
+		return returnStr;
+	}
 	public static String getAllPossiblePathsStr(Tree tree) {
 		String tmpString = "";
 		for (Path p: tree.descendingOrderPaths) {

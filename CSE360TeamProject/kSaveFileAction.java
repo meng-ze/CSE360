@@ -10,11 +10,13 @@ public class kSaveFileAction implements ActionListener {
         Tree tree = this.app.historyNetworks.get(this.app.displayingTreeName);
         String networkName = tree.name;
         String dateTimeStr = tree.dateTime;
+        String nodesStr = kPathDrawer.getSortedActivity(tree);
         String pathStr = kPathDrawer.getAllPossiblePathsStr(tree);
         System.out.printf("--Network Report--\n");
         System.out.printf("Name: %s\n", networkName);
         System.out.printf("Create Time: %s\n", dateTimeStr);
-        System.out.printf("--Activities--\n%s", "");
+        System.out.printf("\n");
+        System.out.printf("--Activities--\n%s", nodesStr);
         System.out.printf("\n");
         System.out.printf("--Paths--\n%s", pathStr);
     }

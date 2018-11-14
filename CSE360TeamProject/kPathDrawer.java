@@ -28,7 +28,7 @@ public class kPathDrawer {
 		app.textArea_inputRecord.setEditable(false);
 
 	}
-    public static void drawDiagram(Tree tree, GUIApp app) {
+    public static void drawDiagram(Tree tree, Boolean criticalOnly, GUIApp app) {
 		app.displayingTreeName = tree.name;
 		
 		System.out.printf("DrawDiagram\n");
@@ -51,10 +51,15 @@ public class kPathDrawer {
 				} else {
 					overrideGraphics.setColor(Color.black);
 				}
-                overrideGraphics.drawLine(0, 0, arrowLength, 0);
-                overrideGraphics.fillPolygon(
-					new int[] { arrowLength, arrowLength-arrowSize, arrowLength-arrowSize, arrowLength}, 
-					new int[] { 0, -arrowSize, arrowSize, 0}, 3);
+				if (criticalOnly && overrideGraphics.getColor().equals(Color.black)) {
+
+				} else {
+					overrideGraphics.drawLine(0, 0, arrowLength, 0);
+					overrideGraphics.fillPolygon(
+						new int[] { arrowLength, arrowLength-arrowSize, arrowLength-arrowSize, arrowLength}, 
+						new int[] { 0, -arrowSize, arrowSize, 0}, 3
+						);
+				}
 			}
 
             void drawRec(Graphics overrideGraphics, Node node) {
@@ -66,6 +71,9 @@ public class kPathDrawer {
 					overrideGraphics.setColor(Color.red);
 				} else {
 					overrideGraphics.setColor(Color.blue);
+				}
+				if (criticalOnly && overrideGraphics.getColor().equals(Color.blue)) {
+					return;
 				}
 				overrideGraphics.fillRect(node.boundingBox.x, node.boundingBox.y, boxWidth, boxHeight);
 

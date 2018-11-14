@@ -92,6 +92,9 @@ public class ANETA extends GUIApp {
 		this.pathsFoundPanel.add(scrollPane_PathsFound);
 		JButton modify_action_button = this.addButton("Modify Action", this.pathsFoundPanel, "/CSE360TeamProject/Icons/icons8-undo-26.png", null, 893, 80, 123, 39);
 		modify_action_button.addActionListener(new kModifyNodeAction(this));
+
+		JButton show_critical_only_button = this.addButton("Critical Only", this.pathsFoundPanel, "/CSE360TeamProject/Icons/icons8-undo-26.png", null, 893, 140, 123, 39);
+		show_critical_only_button.addActionListener(new kCriticalOnlyAction(this, show_critical_only_button));
 		
 		/*
 		 * RecordPanel: show network diagram record

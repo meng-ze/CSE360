@@ -14,6 +14,10 @@ public class kModifyNodeAction implements ActionListener {
         "New Duration:", duration_field
     };
     public void actionPerformed(ActionEvent e) {
+        if (this.app.displayingTreeName == null) {
+            System.out.printf("modify: displayingName is null");
+            return;
+        }
         int result = JOptionPane.showConfirmDialog(null, modify_node_event, "Modifying Node", JOptionPane.YES_NO_CANCEL_OPTION);
         String node_name = node_name_filed.getText();
         String new_duration = duration_field.getText();
@@ -29,13 +33,15 @@ public class kModifyNodeAction implements ActionListener {
                     }
                     tmp_node.duration = Integer.parseInt(new_duration);
                     Tree newTree = new Tree(oldTree.rawData);
+                    newTree.name = oldTree.name;
                     newTree.treeConstructAux();
                     newTree.traverse();
                     newTree.findAllPossiblePaths();
                     newTree.constructPertDiagram(true);
                     newTree.constructPertDiagram(false);
                     newTree.generateNodeLocation();
-                    kPathDrawer.drawDiagram(newTree, this.app);
+                    this.app.drawCriticalOnly = false;
+                    kPathDrawer.drawDiagram(newTree, false, this.app);
                     this.app.historyNetworks.put(this.app.displayingTreeName, newTree);
                     return;
                 }

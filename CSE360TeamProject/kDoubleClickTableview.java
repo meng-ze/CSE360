@@ -14,7 +14,8 @@ public class kDoubleClickTableview extends MouseAdapter  {
         int row = this.app.recordTable.rowAtPoint(point);
         if (m.getClickCount() == 2 && this.app.recordTable.getSelectedRow() != -1) {
             String networkKey = (String)this.app.model.getValueAt(this.app.recordTable.getSelectedRow(), 0);
-            kPathDrawer.drawDiagram(this.app.historyNetworks.get(networkKey), this.app);
+            this.app.drawCriticalOnly = false;
+            kPathDrawer.drawDiagram(this.app.historyNetworks.get(networkKey), false, this.app);
             this.app.navigateToPathsFoundPanel();
         }
     }

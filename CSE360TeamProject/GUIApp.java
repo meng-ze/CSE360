@@ -25,6 +25,7 @@ public class GUIApp extends GUI {
 	protected DefaultTableModel model;
 	protected JTable recordTable;
 	public String displayingTreeName;
+	protected Boolean drawCriticalOnly = false;
 
 	public void resetAllNodes() {
 		System.out.printf("Reset All Nodes\n");

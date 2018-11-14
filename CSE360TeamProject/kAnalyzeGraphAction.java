@@ -38,6 +38,7 @@ public class kAnalyzeGraphAction implements ActionListener {
                 JOptionPane.showConfirmDialog(null, "Seems like part of your diagram is not connected.\nPlease check your dependency.", "WARNING", JOptionPane.DEFAULT_OPTION);
             } else {
                 String historyKey = "Network"+this.app.graphNumber;
+                tree.name = historyKey;
                 this.app.historyNetworks.put(historyKey, tree);
                 this.app.model.addRow(new Object[] { historyKey, ""+tree.nodeDict.size() });
                 tree.constructPertDiagram(true);

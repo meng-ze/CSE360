@@ -24,6 +24,7 @@ public class GUIApp extends GUI {
 	public HashMap<String, Node> nodeMaps = new HashMap<String, Node>();
 	protected DefaultTableModel model;
 	protected JTable recordTable;
+	public String displayingTreeName;
 
 	public void resetAllNodes() {
 		System.out.printf("Reset All Nodes\n");

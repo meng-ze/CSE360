@@ -29,6 +29,8 @@ public class kPathDrawer {
 
 	}
     public static void drawDiagram(Tree tree, GUIApp app) {
+		app.displayingTreeName = tree.name;
+		
 		System.out.printf("DrawDiagram\n");
 		printAllPossiblePaths(tree, app);
 		app.scrollPane_PathsFound.setViewportView(new JComponent() {

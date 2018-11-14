@@ -88,8 +88,10 @@ public class ANETA extends GUIApp {
 		pathsFound_title.setBounds(449, 22, 153, 35);
 		this.pathsFoundPanel.add(pathsFound_title);
 		
-		scrollPane_PathsFound.setBounds(21, 70, 987, 298);
+		scrollPane_PathsFound.setBounds(21, 70, 857, 298);
 		this.pathsFoundPanel.add(scrollPane_PathsFound);
+		JButton modify_action_button = this.addButton("Modify Action", this.pathsFoundPanel, "/CSE360TeamProject/Icons/icons8-undo-26.png", null, 893, 80, 123, 39);
+		modify_action_button.addActionListener(new kModifyNodeAction(this));
 		
 		/*
 		 * RecordPanel: show network diagram record

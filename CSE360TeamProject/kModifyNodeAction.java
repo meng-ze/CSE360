@@ -34,6 +34,7 @@ public class kModifyNodeAction implements ActionListener {
                     tmp_node.duration = Integer.parseInt(new_duration);
                     Tree newTree = new Tree(oldTree.rawData);
                     newTree.name = oldTree.name;
+                    newTree.dateTime = oldTree.dateTime;
                     newTree.treeConstructAux();
                     newTree.traverse();
                     newTree.findAllPossiblePaths();

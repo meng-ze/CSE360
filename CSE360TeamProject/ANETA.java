@@ -96,6 +96,8 @@ public class ANETA extends GUIApp {
 		JButton show_critical_only_button = this.addButton("Critical Only", this.pathsFoundPanel, "/CSE360TeamProject/Icons/icons8-undo-26.png", null, 893, 140, 123, 39);
 		show_critical_only_button.addActionListener(new kCriticalOnlyAction(this, show_critical_only_button));
 		
+		JButton save_file_button = this.addButton("Save to file", this.pathsFoundPanel, "/CSE360TeamProject/Icons/icons8-undo-26.png", null, 893, 200, 123, 39);
+		save_file_button.addActionListener(new kSaveFileAction(this));
 		/*
 		 * RecordPanel: show network diagram record
 		 * 

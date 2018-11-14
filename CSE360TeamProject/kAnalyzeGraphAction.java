@@ -1,6 +1,8 @@
 import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;
 
 public class kAnalyzeGraphAction implements ActionListener {
     private GUIApp app;
@@ -39,6 +41,9 @@ public class kAnalyzeGraphAction implements ActionListener {
             } else {
                 String historyKey = "Network"+this.app.graphNumber;
                 tree.name = historyKey;
+                DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");  
+                LocalDateTime now = LocalDateTime.now();
+                tree.dateTime = dateTimeFormat.format(now);
                 this.app.historyNetworks.put(historyKey, tree);
                 this.app.model.addRow(new Object[] { historyKey, ""+tree.nodeDict.size() });
                 tree.constructPertDiagram(true);
@@ -50,6 +55,7 @@ public class kAnalyzeGraphAction implements ActionListener {
                     node.lateStart, node.lateFinish, node.order);
                 }
                 tree.generateNodeLocation();
+                this.app.drawCriticalOnly = false;
                 kPathDrawer.drawDiagram(tree, false, this.app);
                 this.app.navigateToPathsFoundPanel();
             }

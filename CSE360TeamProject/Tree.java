@@ -8,6 +8,7 @@ public class Tree {
     public HashMap<String, Node> endPoint = new HashMap<String, Node>();
     public ArrayList<Path> descendingOrderPaths = new ArrayList<Path>();
     public String name;
+    public String dateTime;
 
     public Tree(ArrayList<Node> nodes) {
         for (Node n: nodes) {

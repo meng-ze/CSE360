@@ -28,6 +28,20 @@ public class kPathDrawer {
 		app.textArea_inputRecord.setEditable(false);
 
 	}
+	public static String getAllPossiblePathsStr(Tree tree) {
+		String tmpString = "";
+		for (Path p: tree.descendingOrderPaths) {
+			for (Node node: p.path) {
+				tmpString += node.name;
+				if (node.nextNodes.size() != 0) {
+					tmpString += " -> ";
+				}
+			}	
+			tmpString += ": ";
+			tmpString += "" + p.pathLength + "\n";
+		}
+		return tmpString;
+	}
     public static void drawDiagram(Tree tree, Boolean criticalOnly, GUIApp app) {
 		app.displayingTreeName = tree.name;
 		

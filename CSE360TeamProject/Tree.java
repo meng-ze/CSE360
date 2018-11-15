@@ -250,6 +250,7 @@ public class Tree {
 
         int basedSpace = 40;
         int maxheight = 300;
+        Boolean hasOffset = false;
 
         for (int layerNumber: orderMap.keySet()) {
             int boxheight = orderMap.get(layerNumber).get(0).boundingBox.height;
@@ -259,12 +260,23 @@ public class Tree {
 
             int i = 0;
             for (Node node: orderMap.get(layerNumber)) {
-                node.boundingBox.y = startPoint + i*(boxheight+basedSpace);
+                int desireY = startPoint + i*(boxheight+basedSpace);
+                if (node.hasTwoDependencyInTheSameY(desireY)) {
+                    hasOffset = !hasOffset;
+                    while (node.hasTwoDependencyInTheSameY(desireY)) {
+                        if (hasOffset) {
+                            i++;
+                        } else {
+                            i--;
+                        }
+                        desireY = startPoint + i*(boxheight+basedSpace);
+                    }
+                }
+                node.boundingBox.y = desireY;
                 i++;
             }
         }
     }
-
 
     public Boolean isNotConnected() {
         System.out.printf("End point count: %s\n", this.endPoint.size());

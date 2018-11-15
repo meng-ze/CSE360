@@ -52,6 +52,19 @@ public class Node {
         this.anchorPointExit.y = y+(height/2);
     }
 
+    public Boolean hasTwoDependencyInTheSameY(int targetY) {
+        int found = 0;
+        for (Node depNode: this.dependencies) {
+            if (depNode.boundingBox.y == targetY) {
+                found += 1;
+            }
+        }
+        if (found > 1) {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return "Name: "+name+", Nexts: "+nextNodes_key+", Dependencies: "+dependencies_key;
